@@ -4,4 +4,6 @@ import { CreateUserDto } from 'src/infrastructure/users/dto/create-user.dto'
 export interface iUserRepository {
 	getUsers(): Promise<User[]>
 	createUser(userDto: CreateUserDto): Promise<User>
+	getUserByEmail(email: string): Promise<User>
+	getUserByName(name: string): Promise<User>
 }

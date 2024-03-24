@@ -1,8 +1,5 @@
-import { UserRole } from 'src/domain/models/user/user'
-
-export interface iUserCreateAttr {
+export interface IUserCreateAttr {
 	name: string
 	email: string
 	password: string
-	role: UserRole
 }

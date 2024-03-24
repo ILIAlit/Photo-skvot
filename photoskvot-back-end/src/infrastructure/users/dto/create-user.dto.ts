@@ -1,9 +1,7 @@
-import { iUserCreateAttr } from 'src/domain/adapters/entity/user/userCreateAttr.interface'
-import { UserRole } from 'src/domain/models/user/user'
+import { IUserCreateAttr } from 'src/domain/adapters/entity/user/userCreateAttr.interface'
 
-export class CreateUserDto implements iUserCreateAttr {
+export class CreateUserDto implements IUserCreateAttr {
 	name: string
 	email: string
 	password: string
-	role: UserRole
 }

@@ -20,7 +20,12 @@ export class UserEntity extends Model {
 	@Column({ type: DataType.STRING, allowNull: false })
 	password: string
 
-	@Column({ type: DataType.ENUM, values: ['admin', 'user'], allowNull: false })
+	@Column({
+		type: DataType.ENUM,
+		values: ['admin', 'user'],
+		allowNull: false,
+		defaultValue: 'user',
+	})
 	role: UserRole
 
 	@Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: false })

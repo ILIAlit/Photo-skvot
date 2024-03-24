@@ -13,4 +13,18 @@ export class UserRepository implements iUserRepository {
 	async createUser(userDto: CreateUserDto): Promise<User> {
 		return await this.user.create<UserEntity>({ ...userDto })
 	}
+
+	async getUserByEmail(email: string): Promise<User> {
+		return await this.user.findOne<UserEntity>({
+			where: { email },
+			include: { all: true },
+		})
+	}
+
+	async getUserByName(name: string): Promise<User> {
+		return await this.user.findOne<UserEntity>({
+			where: { name },
+			include: { all: true },
+		})
+	}
 }

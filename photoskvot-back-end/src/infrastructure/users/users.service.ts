@@ -13,7 +13,15 @@ export class UsersService {
 		return await this.userRepository.getUsers()
 	}
 
-	createUser(userDto: CreateUserDto): Promise<User> {
+	async createUser(userDto: CreateUserDto): Promise<User> {
 		return this.userRepository.createUser(userDto)
+	}
+
+	async getUserByEmail(email: string): Promise<User> {
+		return await this.userRepository.getUserByEmail(email)
+	}
+
+	async getUserByName(name: string): Promise<User> {
+		return await this.userRepository.getUserByName(name)
 	}
 }
