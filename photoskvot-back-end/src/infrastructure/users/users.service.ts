@@ -1,12 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { User } from 'src/domain/models/user/user'
-import { iUserRepository } from 'src/domain/repositories/user/userRepository.interface'
+import { IUserRepository } from 'src/domain/repositories/user/userRepository.interface'
+import { ProfileService } from '../profile/profile.service'
 import { CreateUserDto } from './dto/create-user.dto'
 
 @Injectable()
 export class UsersService {
 	constructor(
-		@Inject('iUserRepository') private readonly userRepository: iUserRepository
+		@Inject('IUserRepository') private readonly userRepository: IUserRepository,
+		private readonly profileService: ProfileService
 	) {}
 
 	async getUsers(): Promise<User[]> {
@@ -14,7 +16,9 @@ export class UsersService {
 	}
 
 	async createUser(userDto: CreateUserDto): Promise<User> {
-		return this.userRepository.createUser(userDto)
+		const profile = await this.profileService.createProfile()
+		const user = await this.userRepository.createUser(userDto, profile.id)
+		return user
 	}
 
 	async getUserByEmail(email: string): Promise<User> {

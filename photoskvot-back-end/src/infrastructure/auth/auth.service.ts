@@ -22,7 +22,7 @@ export class AuthService {
 		const candidate = await this.userService.getUserByName(loginUserDto.name)
 		if (!candidate) {
 			throw new HttpException(
-				'Пользователь с таким не логином существует!',
+				'Пользователь с таким логином не существует!',
 				HttpStatus.BAD_REQUEST
 			)
 		}

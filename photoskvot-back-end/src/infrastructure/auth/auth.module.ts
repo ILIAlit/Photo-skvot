@@ -9,5 +9,6 @@ import { AuthService } from './auth.service'
 	imports: [UsersModule, BcryptModule, JwtModule],
 	controllers: [AuthController],
 	providers: [AuthService],
+	exports: [AuthService],
 })
 export class AuthModule {}

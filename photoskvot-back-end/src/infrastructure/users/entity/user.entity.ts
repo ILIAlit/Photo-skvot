@@ -1,8 +1,9 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript'
-import { UserRole } from 'src/domain/models/user/user'
+import { Column, DataType, HasOne, Model, Table } from 'sequelize-typescript'
+import { User, UserRole } from 'src/domain/models/user/user'
+import { ProfileEntity } from 'src/infrastructure/profile/entity/profile'
 
 @Table({ tableName: 'users' })
-export class UserEntity extends Model {
+export class UserEntity extends Model implements User {
 	@Column({
 		type: DataType.INTEGER,
 		unique: true,
@@ -30,4 +31,7 @@ export class UserEntity extends Model {
 
 	@Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: false })
 	isBaned: boolean
+
+	@HasOne(() => ProfileEntity)
+	profile: ProfileEntity
 }
