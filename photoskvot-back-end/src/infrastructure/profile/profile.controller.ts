@@ -10,10 +10,10 @@ import { ProfileService } from './profile.service'
 export class ProfileController {
 	constructor(private readonly profileService: ProfileService) {}
 
-	@Get()
 	@ApiOperation({ summary: 'Get user profile' })
 	@ApiResponse({ status: 200, type: Profile })
 	@UseGuards(JwtAuthGuard)
+	@Get()
 	async getProfile(@Req() request: IGetUserAuthInfoRequest): Promise<Profile> {
 		const user = await request.user
 		const userId = user.id

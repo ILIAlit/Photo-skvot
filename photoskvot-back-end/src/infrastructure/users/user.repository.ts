@@ -19,14 +19,19 @@ export class UserRepository implements IUserRepository {
 	async getUserByEmail(email: string): Promise<User> {
 		return await this.user.findOne<UserEntity>({
 			where: { email },
-			include: { all: true },
 		})
 	}
 
 	async getUserByName(name: string): Promise<User> {
 		return await this.user.findOne<UserEntity>({
 			where: { name },
-			include: { all: true },
+		})
+	}
+
+	async banUser(userId): Promise<User> {
+		const user = await this.user.findByPk(userId)
+		return await user.update({
+			isBaned: true,
 		})
 	}
 }

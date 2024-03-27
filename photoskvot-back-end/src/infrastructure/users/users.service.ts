@@ -28,4 +28,8 @@ export class UsersService {
 	async getUserByName(name: string): Promise<User> {
 		return await this.userRepository.getUserByName(name)
 	}
+
+	async banUser(userId): Promise<User> {
+		return await this.userRepository.banUser(userId)
+	}
 }

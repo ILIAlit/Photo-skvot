@@ -27,6 +27,9 @@ export class AuthService {
 				HttpStatus.BAD_REQUEST
 			)
 		}
+		if (candidate.isBaned) {
+			throw new HttpException('Пользователь забанен!', HttpStatus.FORBIDDEN)
+		}
 		const user = await this.validateUser(loginUserDto, candidate)
 		return this.jwtService.generateToken(user)
 	}
@@ -60,9 +63,9 @@ export class AuthService {
 		return this.jwtService.generateToken(user)
 	}
 
-	private async validateUser(userDto: LoginUserDto, user: User) {
+	private async validateUser(loginUserDto: LoginUserDto, user: User) {
 		const passwordEquals = await this.bcryptService.comparePassword(
-			userDto.password,
+			loginUserDto.password,
 			user.password
 		)
 		if (user && passwordEquals) {
