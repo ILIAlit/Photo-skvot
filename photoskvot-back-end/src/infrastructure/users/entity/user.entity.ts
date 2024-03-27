@@ -1,9 +1,13 @@
 import { Column, DataType, HasOne, Model, Table } from 'sequelize-typescript'
+import { IUserCreateAttr } from 'src/domain/adapters/entity/user/userCreateAttr.interface'
 import { User, UserRole } from 'src/domain/models/user/user'
 import { ProfileEntity } from 'src/infrastructure/profile/entity/profile'
 
 @Table({ tableName: 'users' })
-export class UserEntity extends Model implements User {
+export class UserEntity
+	extends Model<UserEntity, IUserCreateAttr>
+	implements User
+{
 	@Column({
 		type: DataType.INTEGER,
 		unique: true,

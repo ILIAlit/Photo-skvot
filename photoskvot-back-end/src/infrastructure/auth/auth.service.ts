@@ -9,6 +9,7 @@ import { BcryptService } from '../services/bcrypt/bcrypt.service'
 import { JwtService } from '../services/jwt/jwt.service'
 import { LoginUserDto } from '../users/dto/login-user-dto'
 import { UsersService } from '../users/users.service'
+import { ResponseAuthDto } from './dto/response-auth.dto'
 
 @Injectable()
 export class AuthService {
@@ -18,7 +19,7 @@ export class AuthService {
 		private readonly jwtService: JwtService
 	) {}
 
-	async login(loginUserDto): Promise<Object> {
+	async login(loginUserDto): Promise<ResponseAuthDto> {
 		const candidate = await this.userService.getUserByName(loginUserDto.name)
 		if (!candidate) {
 			throw new HttpException(
@@ -30,7 +31,7 @@ export class AuthService {
 		return this.jwtService.generateToken(user)
 	}
 
-	async register(createUserDto): Promise<Object> {
+	async register(createUserDto): Promise<ResponseAuthDto> {
 		const emailCandidate = await this.userService.getUserByEmail(
 			createUserDto.email
 		)

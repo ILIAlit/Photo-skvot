@@ -6,10 +6,11 @@ import {
 	Model,
 	Table,
 } from 'sequelize-typescript'
+import { Profile } from 'src/domain/models/profile/profile'
 import { UserEntity } from 'src/infrastructure/users/entity/user.entity'
 
 @Table({ tableName: 'profiles' })
-export class ProfileEntity extends Model {
+export class ProfileEntity extends Model implements Profile {
 	@Column({
 		type: DataType.INTEGER,
 		unique: true,

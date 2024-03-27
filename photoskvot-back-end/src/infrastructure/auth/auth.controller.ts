@@ -1,19 +1,28 @@
 import { Body, Controller, Post } from '@nestjs/common'
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateUserDto } from '../users/dto/create-user.dto'
-import { AuthService } from './auth.service'
 import { LoginUserDto } from '../users/dto/login-user-dto'
+import { AuthService } from './auth.service'
+import { ResponseAuthDto } from './dto/response-auth.dto'
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
 	constructor(private authService: AuthService) {}
 
 	@Post('login')
-	async login(@Body() loginUserDto: LoginUserDto): Promise<Object> {
+	@ApiOperation({ summary: 'Login user' })
+	@ApiResponse({ status: 200, type: ResponseAuthDto })
+	async login(@Body() loginUserDto: LoginUserDto): Promise<ResponseAuthDto> {
 		return await this.authService.login(loginUserDto)
 	}
 
 	@Post('register')
-	async register(@Body() createUserDto: CreateUserDto): Promise<Object> {
+	@ApiOperation({ summary: 'Register user' })
+	@ApiResponse({ status: 200, type: ResponseAuthDto })
+	async register(
+		@Body() createUserDto: CreateUserDto
+	): Promise<ResponseAuthDto> {
 		return await this.authService.register(createUserDto)
 	}
 }
