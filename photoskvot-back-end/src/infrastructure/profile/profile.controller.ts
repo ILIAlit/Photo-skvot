@@ -1,8 +1,9 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, Patch, Req, UseGuards } from '@nestjs/common'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { IGetUserAuthInfoRequest } from 'src/domain/adapters/user/IGetUserAuthInfoRequest.interface'
 import { Profile } from 'src/domain/models/profile/profile'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
+import { UpdateProfileDto } from './dto/update-profile.dto'
 import { ProfileService } from './profile.service'
 
 @ApiTags('Profile')
@@ -18,5 +19,18 @@ export class ProfileController {
 		const user = await request.user
 		const userId = user.id
 		return await this.profileService.getProfile(userId)
+	}
+
+	@ApiOperation({ summary: 'Update user profile' })
+	@ApiResponse({ status: 200, type: Profile })
+	@UseGuards(JwtAuthGuard)
+	@Patch('update')
+	async updateProfile(
+		@Req() request: IGetUserAuthInfoRequest,
+		@Body() updateProfileDto: UpdateProfileDto
+	): Promise<Profile> {
+		const user = await request.user
+		const userId = user.id
+		return await this.profileService.updateProfile(updateProfileDto, userId)
 	}
 }
