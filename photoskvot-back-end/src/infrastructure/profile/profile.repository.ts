@@ -8,8 +8,10 @@ export class ProfileRepository implements IProfileRepository {
 	constructor(
 		@Inject('Profile') private readonly profile: typeof ProfileEntity
 	) {}
-	async getProfile(userId: number): Promise<any> {
-		return await this.profile.findOne({ where: { user_id: userId } })
+	async getProfile(userId: number): Promise<Profile> {
+		return await this.profile.findOne({
+			where: { user_id: userId },
+		})
 	}
 	async createProfile(): Promise<Profile> {
 		return await this.profile.create<ProfileEntity>()

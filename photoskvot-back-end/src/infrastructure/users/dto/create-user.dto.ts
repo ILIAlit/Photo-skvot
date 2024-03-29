@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IUserCreateAttr } from 'src/domain/adapters/entity/user/userCreateAttr.interface'
+import { IUserCreateAttr } from 'src/domain/adapters/entity/user/user-create-attr.interface'
 
 export class CreateUserDto implements IUserCreateAttr {
 	@ApiProperty({

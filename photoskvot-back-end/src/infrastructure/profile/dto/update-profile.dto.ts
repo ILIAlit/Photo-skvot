@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IProfileUpdateAttr } from 'src/domain/adapters/entity/profile/profileUpdateAttr.interface'
+import { IProfileUpdateAttr } from 'src/domain/adapters/entity/profile/profile-update-attr.interface'
 
 export class UpdateProfileDto implements IProfileUpdateAttr {
 	@ApiProperty({

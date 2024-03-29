@@ -1,6 +1,14 @@
-import { Column, DataType, HasOne, Model, Table } from 'sequelize-typescript'
-import { IUserCreateAttr } from 'src/domain/adapters/entity/user/userCreateAttr.interface'
+import {
+	Column,
+	DataType,
+	HasMany,
+	HasOne,
+	Model,
+	Table,
+} from 'sequelize-typescript'
+import { IUserCreateAttr } from 'src/domain/adapters/entity/user/user-create-attr.interface'
 import { User, UserRole } from 'src/domain/models/user/user'
+import { PostEntity } from 'src/infrastructure/posts/entities/post.entity'
 import { ProfileEntity } from 'src/infrastructure/profile/entity/profile'
 
 @Table({ tableName: 'users' })
@@ -38,4 +46,7 @@ export class UserEntity
 
 	@HasOne(() => ProfileEntity)
 	profile: ProfileEntity
+
+	@HasMany(() => PostEntity)
+	posts: PostEntity[]
 }

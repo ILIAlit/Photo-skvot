@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IUserLoginAttr } from 'src/domain/adapters/entity/user/userLoginAttr.interface'
+import { IUserLoginAttr } from 'src/domain/adapters/entity/user/user-login-attr.interface'
 
 export class LoginUserDto implements IUserLoginAttr {
 	@ApiProperty({
