@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize-typescript'
 import { DEVELOPMENT, PRODUCTION, SEQUELIZE } from '../../domain/constants'
+import { PhotoEntity } from '../photos/entities/photo.entity'
 import { PostEntity } from '../posts/entities/post.entity'
 import { ProfileEntity } from '../profile/entity/profile'
 import { UserEntity } from '../users/entity/user.entity'
@@ -21,7 +22,7 @@ export const databaseProvider = [
 					config = databaseConfig.development
 			}
 			const sequelize = new Sequelize(config)
-			sequelize.addModels([UserEntity, ProfileEntity, PostEntity])
+			sequelize.addModels([UserEntity, ProfileEntity, PostEntity, PhotoEntity])
 			await sequelize.sync()
 			return sequelize
 		},

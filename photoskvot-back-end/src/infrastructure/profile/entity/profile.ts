@@ -32,7 +32,7 @@ export class ProfileEntity extends Model implements Profile {
 	social_link: string
 
 	@ForeignKey(() => UserEntity)
-	@Column({ type: DataType.INTEGER })
+	@Column({ type: DataType.INTEGER, unique: true })
 	user_id: number
 
 	@BelongsTo(() => UserEntity)
