@@ -4,6 +4,7 @@ import { User } from 'src/domain/models/user/user'
 import { Roles } from '../auth/decorators/roles-auth.decorator'
 import { RoleGuard } from '../auth/guards/roles.guard'
 import { UsersService } from './users.service'
+import { BanUserParams } from './dto/ban-user-params.dto'
 
 @ApiTags('User')
 @Controller('users')
@@ -24,10 +25,10 @@ export class UsersController {
 	@ApiOperation({ summary: 'Ban user' })
 	@ApiResponse({ status: 200, type: User })
 	@ApiQuery({ name: 'id', description: 'user id' })
-	@Roles('admin')
+	@Roles('')
 	@UseGuards(RoleGuard)
 	@Get('ban-user')
-	async ban(@Query('id') userId): Promise<User> {
+	async ban(@Query() { id: userId }: BanUserParams): Promise<User> {
 		return await this.usersService.banUser(userId)
 	}
 }

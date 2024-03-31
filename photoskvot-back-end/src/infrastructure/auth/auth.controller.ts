@@ -14,7 +14,6 @@ export class AuthController {
 	@Post('login')
 	@ApiOperation({ summary: 'Login user' })
 	@ApiResponse({ status: 200, type: ResponseAuthDto })
-	@UsePipes(ValidationPipe)
 	async login(@Body() loginUserDto: LoginUserDto): Promise<ResponseAuthDto> {
 		return await this.authService.login(loginUserDto)
 	}
