@@ -15,7 +15,7 @@ export class ProfileController {
 	@ApiResponse({ status: 200, type: Profile })
 	@UseGuards(JwtAuthGuard)
 	@Get()
-	async getProfile(@Req() request: IGetUserAuthInfoRequest): Promise<Profile> {
+	async findOne(@Req() request: IGetUserAuthInfoRequest): Promise<Profile> {
 		const user = await request.user
 		const userId = user.id
 		return await this.profileService.getProfile(userId)
@@ -25,7 +25,7 @@ export class ProfileController {
 	@ApiResponse({ status: 200, type: Profile })
 	@UseGuards(JwtAuthGuard)
 	@Patch('update')
-	async updateProfile(
+	async update(
 		@Req() request: IGetUserAuthInfoRequest,
 		@Body() updateProfileDto: UpdateProfileDto
 	): Promise<Profile> {

@@ -1,26 +1,34 @@
-import { Injectable } from '@nestjs/common';
-import { CreatePhotoDto } from './dto/create-photo.dto';
-import { UpdatePhotoDto } from './dto/update-photo.dto';
+import { Inject, Injectable } from '@nestjs/common'
+import { Photo } from 'src/domain/models/photo/photo'
+import { IPhotoRepository } from 'src/domain/repositories/photo/photoRepository.interface'
+import { CreatePhotoDto } from './dto/create-photo.dto'
+import { UpdatePhotoDto } from './dto/update-photo.dto'
 
 @Injectable()
 export class PhotosService {
-  create(createPhotoDto: CreatePhotoDto) {
-    return 'This action adds a new photo';
-  }
+	constructor(
+		@Inject('IPhotoRepository')
+		private readonly photoRepository: IPhotoRepository
+	) {}
+	async create(dto: CreatePhotoDto, imageFile: any): Promise<Photo> {
+		const imageSrc = '123'
+		return await this.photoRepository.createPhoto({ ...dto, src: imageSrc })
+	}
 
-  findAll() {
-    return `This action returns all photos`;
-  }
+	async findAll(): Promise<Photo[]> {
+		return await this.photoRepository.getPhotos()
+	}
 
-  findOne(id: number) {
-    return `This action returns a #${id} photo`;
-  }
+	async findOne(postId: number) {
+		return await this.photoRepository.getOnePhoto(postId)
+	}
 
-  update(id: number, updatePhotoDto: UpdatePhotoDto) {
-    return `This action updates a #${id} photo`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} photo`;
-  }
+	async update(postId: number, updatePhotoDto: UpdatePhotoDto, imageFile: any) {
+		const imageSrc = '123'
+		return await this.photoRepository.updatePhoto(
+			updatePhotoDto,
+			postId,
+			imageSrc
+		)
+	}
 }

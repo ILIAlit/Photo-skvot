@@ -1,9 +1,13 @@
-import { Module } from '@nestjs/common';
-import { PhotosService } from './photos.service';
-import { PhotosController } from './photos.controller';
+import { forwardRef, Module } from '@nestjs/common'
+import { AuthModule } from '../auth/auth.module'
+import { JwtModule } from '../services/jwt/jwt.module'
+import { photoProviders } from './photo.providers'
+import { PhotosController } from './photos.controller'
+import { PhotosService } from './photos.service'
 
 @Module({
-  controllers: [PhotosController],
-  providers: [PhotosService],
+	imports: [forwardRef(() => AuthModule), JwtModule],
+	controllers: [PhotosController],
+	providers: [PhotosService, ...photoProviders],
 })
 export class PhotosModule {}

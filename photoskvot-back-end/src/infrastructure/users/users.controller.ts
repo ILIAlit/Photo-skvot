@@ -17,7 +17,7 @@ export class UsersController {
 	@Roles('admin')
 	@UseGuards(RoleGuard)
 	@Get()
-	async getUsers(): Promise<User[]> {
+	async findAll(): Promise<User[]> {
 		return await this.usersService.getUsers()
 	}
 
@@ -27,7 +27,7 @@ export class UsersController {
 	@Roles('admin')
 	@UseGuards(RoleGuard)
 	@Get('ban-user')
-	async banUser(@Query('id') userId): Promise<User> {
+	async ban(@Query('id') userId): Promise<User> {
 		return await this.usersService.banUser(userId)
 	}
 }

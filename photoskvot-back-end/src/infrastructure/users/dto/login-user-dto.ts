@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IUserLoginAttr } from 'src/domain/adapters/entity/user/user-login-attr.interface'
 
-export class LoginUserDto implements IUserLoginAttr {
+export class LoginUserDto {
 	@ApiProperty({
 		description: 'user name',
 		nullable: false,
