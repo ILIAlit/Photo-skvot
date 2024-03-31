@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Photo } from 'src/domain/models/photo/photo'
 import { IPhotoRepository } from 'src/domain/repositories/photo/photoRepository.interface'
+import { FilesService } from '../services/files/files.service'
 import { CreatePhotoDto } from './dto/create-photo.dto'
 import { UpdatePhotoDto } from './dto/update-photo.dto'
 
@@ -8,10 +9,11 @@ import { UpdatePhotoDto } from './dto/update-photo.dto'
 export class PhotosService {
 	constructor(
 		@Inject('IPhotoRepository')
-		private readonly photoRepository: IPhotoRepository
+		private readonly photoRepository: IPhotoRepository,
+		private readonly fileService: FilesService
 	) {}
 	async create(dto: CreatePhotoDto, imageFile: any): Promise<Photo> {
-		const imageSrc = '123'
+		const imageSrc = await this.fileService.createFile(imageFile)
 		return await this.photoRepository.createPhoto({ ...dto, src: imageSrc })
 	}
 
