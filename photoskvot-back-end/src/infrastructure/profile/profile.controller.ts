@@ -14,6 +14,7 @@ import { ResponseErrorAuthDto } from '../auth/dto/response-error-auth.dto'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { ResponseErrorValidation } from '../common/pipes/validation/dto/res-error-validation.dto'
 import { ImgFileTypeValidationPipe } from '../common/pipes/validation/img-file-type-validation.pipe'
+import { ApiMultiFormData } from '../common/swagger/decorators/api-form-data.decorator'
 import { UpdateProfileDto } from './dto/update-profile.dto'
 import { ProfileService } from './profile.service'
 
@@ -37,6 +38,27 @@ export class ProfileController {
 	@ApiResponse({ status: 200, type: Profile })
 	@ApiResponse({ status: 400, type: ResponseErrorValidation })
 	@ApiResponse({ status: 401, type: ResponseErrorAuthDto })
+	@ApiMultiFormData({
+		avatar: { description: 'avatar', type: 'file/image', nullable: true },
+		status: {
+			description: 'profile status',
+			type: 'string',
+			nullable: true,
+			example: 'example-profile-status',
+		},
+		about: {
+			description: 'profile bio',
+			type: 'string',
+			nullable: true,
+			example: 'example-profile-bio',
+		},
+		social_link: {
+			description: 'profile social link',
+			type: 'string',
+			nullable: true,
+			example: 'example-profile-social-link',
+		},
+	})
 	@UseGuards(JwtAuthGuard)
 	@Patch('update')
 	async update(
