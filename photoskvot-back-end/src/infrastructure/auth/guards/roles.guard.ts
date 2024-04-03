@@ -10,6 +10,7 @@ import { Reflector } from '@nestjs/core'
 import { Observable } from 'rxjs'
 import { JwtService } from '../../services/jwt/jwt.service'
 import { ROLE_KEY } from '../decorators/roles-auth.decorator'
+import { ResponseErrorAuthDto } from '../dto/response-error-auth.dto'
 
 @Injectable()
 export class RoleGuard implements CanActivate {
@@ -32,15 +33,15 @@ export class RoleGuard implements CanActivate {
 		try {
 			const authHeader = request.headers.authorization
 			if (!authHeader) {
-				throw new UnauthorizedException({
-					message: 'Пользователь не авторизован',
-				})
+				throw new UnauthorizedException(
+					new ResponseErrorAuthDto('Пользователь не авторизован')
+				)
 			}
 			const token = authHeader.split(' ')[1]
 			if (!token) {
-				throw new UnauthorizedException({
-					message: 'Пользователь не авторизован',
-				})
+				throw new UnauthorizedException(
+					new ResponseErrorAuthDto('Пользователь не авторизован')
+				)
 			}
 			const user = this.jwtService.verifyToken(token)
 			return user.role === requiredRole

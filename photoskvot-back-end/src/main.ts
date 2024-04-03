@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from './app.module'
-import { ValidationPipe } from './infrastructure/common/pipes/validation.pipe'
+import { ValidationPipe } from './infrastructure/common/pipes/validation/validation.pipe'
 
 async function start() {
 	const PORT = process.env.PORT || 3000

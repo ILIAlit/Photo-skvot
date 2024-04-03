@@ -1,13 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { IsString } from 'class-validator'
 
 export class UpdateProfileDto {
-	@ApiProperty({
-		description: 'profile avatar',
-		nullable: true,
-		example: 'example-profile-avatar-link',
-	})
-	avatar: string
-
+	@IsString({ message: 'Не является строкой!' })
 	@ApiProperty({
 		description: 'profile status',
 		nullable: true,
@@ -15,6 +10,7 @@ export class UpdateProfileDto {
 	})
 	status: string
 
+	@IsString({ message: 'Не является строкой!' })
 	@ApiProperty({
 		description: 'profile bio',
 		nullable: true,
@@ -22,6 +18,7 @@ export class UpdateProfileDto {
 	})
 	about: string
 
+	@IsString({ message: 'Не является строкой!' })
 	@ApiProperty({
 		description: 'profile social link',
 		nullable: true,
