@@ -1,4 +1,9 @@
-import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common'
+import {
+	ArgumentMetadata,
+	Injectable,
+	Logger,
+	PipeTransform,
+} from '@nestjs/common'
 import { plainToClass } from 'class-transformer'
 import { validate } from 'class-validator'
 import { ValidationException } from 'src/infrastructure/exceptions/validation.exception'
@@ -6,6 +11,7 @@ import { DetailErrorValidation } from '../../../exceptions/dto/detail-error-vali
 
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
+	private logger = new Logger(ValidationPipe.name)
 	async transform(value: any, metadata: ArgumentMetadata) {
 		if (!value) {
 			return value
@@ -14,7 +20,7 @@ export class ValidationPipe implements PipeTransform<any> {
 		const errors = await validate(object)
 		if (errors.length) {
 			let messages = errors.map(error => {
-				console.log(errors)
+				this.logger.error(error.property)
 				const field = error.property
 				const message = Object.values(error.constraints).join(', ')
 				return new DetailErrorValidation(field, message)

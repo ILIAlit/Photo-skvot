@@ -1,3 +1,4 @@
+import { HttpException, HttpStatus } from '@nestjs/common'
 import { Sequelize } from 'sequelize-typescript'
 import { DEVELOPMENT, PRODUCTION, SEQUELIZE } from '../../domain/constants'
 import { PhotoEntity } from '../photos/entities/photo.entity'
@@ -10,21 +11,30 @@ export const databaseProvider = [
 	{
 		provide: SEQUELIZE,
 		useFactory: async () => {
-			let config
-			switch (process.env.NODE) {
-				case DEVELOPMENT:
-					config = databaseConfig.development
-					break
-				case PRODUCTION:
-					config = databaseConfig.production
-					break
-				default:
-					config = databaseConfig.development
+			try {
+				let config
+				switch (process.env.NODE) {
+					case DEVELOPMENT:
+						config = databaseConfig.development
+						break
+					case PRODUCTION:
+						config = databaseConfig.production
+						break
+					default:
+						config = databaseConfig.development
+				}
+				const sequelize = new Sequelize(config)
+				sequelize.addModels([
+					UserEntity,
+					ProfileEntity,
+					PostEntity,
+					PhotoEntity,
+				])
+				await sequelize.sync()
+				return sequelize
+			} catch (error) {
+				throw new HttpException('Ошибка!', HttpStatus.INTERNAL_SERVER_ERROR)
 			}
-			const sequelize = new Sequelize(config)
-			sequelize.addModels([UserEntity, ProfileEntity, PostEntity, PhotoEntity])
-			await sequelize.sync()
-			return sequelize
 		},
 	},
 ]

@@ -3,10 +3,13 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from './app.module'
 import { ValidationPipe } from './infrastructure/common/pipes/validation/validation.pipe'
 import { HttpExceptionFilter } from './infrastructure/exceptions/http-exception.filter'
+import { EmojiLoggerService } from './infrastructure/logger/logger.service'
 
 async function start() {
 	const PORT = process.env.PORT || 3000
-	const app = await NestFactory.create(AppModule)
+	const app = await NestFactory.create(AppModule, {
+		logger: new EmojiLoggerService(),
+	})
 	app.useGlobalPipes(new ValidationPipe())
 	app.useGlobalFilters(new HttpExceptionFilter())
 
