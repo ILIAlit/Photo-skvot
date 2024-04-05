@@ -1,10 +1,10 @@
 import { HttpException, HttpStatus } from '@nestjs/common'
-import { ResponseErrorValidation } from '../common/pipes/validation/dto/res-error-validation.dto'
+import { IFormatValidationExceptionMessage } from 'src/domain/exceptions/exceptions.interface'
 export class ValidationException extends HttpException {
-	messages
+	details
 
-	constructor(response: ResponseErrorValidation[]) {
-		super(response, HttpStatus.BAD_REQUEST)
-		this.messages = response
+	constructor(response: IFormatValidationExceptionMessage[]) {
+		super('Ошибка валидации!', HttpStatus.BAD_REQUEST)
+		this.details = response
 	}
 }

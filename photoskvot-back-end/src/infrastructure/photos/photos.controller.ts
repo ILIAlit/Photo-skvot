@@ -11,12 +11,11 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express'
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { Photo } from 'src/domain/models/photo/photo'
-import { ResponseErrorAuthDto } from '../auth/dto/response-error-auth.dto'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
-import { ResponseErrorValidation } from '../common/pipes/validation/dto/res-error-validation.dto'
 import { FileRequiredValidationPipe } from '../common/pipes/validation/file-required-validation.pipe'
 import { ImgFileTypeValidationPipe } from '../common/pipes/validation/img-file-type-validation.pipe'
 import { ApiMultiFormData } from '../common/swagger/decorators/api-form-data.decorator'
+import { ResponseExceptionDto } from '../exceptions/dto/response-exception'
 import { RequestQueryDto } from './dto/request-query.dto'
 import { UpdatePhotoDto } from './dto/update-photo.dto'
 import { PhotosService } from './photos.service'
@@ -35,7 +34,7 @@ export class PhotosController {
 
 	@ApiOperation({ summary: 'Get one photo' })
 	@ApiResponse({ status: 200, type: Photo })
-	@ApiResponse({ status: 400, type: ResponseErrorValidation })
+	@ApiResponse({ status: 400, type: ResponseExceptionDto })
 	@ApiQuery({ name: 'postId' })
 	@Get('get-one')
 	findOne(@Query() { postId }: RequestQueryDto) {
@@ -53,8 +52,8 @@ export class PhotosController {
 		photo: { description: 'photo file', type: 'file/image', nullable: false },
 	})
 	@ApiResponse({ status: 200, type: Photo })
-	@ApiResponse({ status: 400, type: ResponseErrorValidation })
-	@ApiResponse({ status: 401, type: ResponseErrorAuthDto })
+	@ApiResponse({ status: 400, type: ResponseExceptionDto })
+	@ApiResponse({ status: 401, type: ResponseExceptionDto })
 	@ApiQuery({ name: 'postId' })
 	@UseGuards(JwtAuthGuard)
 	@Patch()
@@ -68,6 +67,7 @@ export class PhotosController {
 		)
 		image: any
 	) {
+		image.tempFilePath
 		return await this.photosService.update(+postId, updatePhotoDto, image)
 	}
 }

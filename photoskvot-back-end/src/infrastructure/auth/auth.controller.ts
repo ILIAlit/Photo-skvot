@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { ResponseErrorValidation } from '../common/pipes/validation/dto/res-error-validation.dto'
+import { ResponseExceptionDto } from '../exceptions/dto/response-exception'
 import { CreateUserDto } from '../users/dto/create-user.dto'
 import { LoginUserDto } from '../users/dto/login-user-dto'
 import { AuthService } from './auth.service'
@@ -14,7 +14,7 @@ export class AuthController {
 	@Post('login')
 	@ApiOperation({ summary: 'Login user' })
 	@ApiResponse({ status: 200, type: ResponseAuthDto })
-	@ApiResponse({ status: 400, type: ResponseErrorValidation })
+	@ApiResponse({ status: 400, type: ResponseExceptionDto })
 	async login(@Body() loginUserDto: LoginUserDto): Promise<ResponseAuthDto> {
 		return await this.authService.login(loginUserDto)
 	}
@@ -22,7 +22,7 @@ export class AuthController {
 	@Post('register')
 	@ApiOperation({ summary: 'Register user' })
 	@ApiResponse({ status: 200, type: ResponseAuthDto })
-	@ApiResponse({ status: 400, type: ResponseErrorValidation })
+	@ApiResponse({ status: 400, type: ResponseExceptionDto })
 	async register(
 		@Body() createUserDto: CreateUserDto
 	): Promise<ResponseAuthDto> {

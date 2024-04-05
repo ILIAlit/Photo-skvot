@@ -4,7 +4,6 @@ import {
 	ARRAY_OF_ALLOWED_FILES,
 } from 'src/domain/constants'
 import { ValidationException } from 'src/infrastructure/exceptions/validation.exception'
-import { ResponseErrorValidation } from './dto/res-error-validation.dto'
 
 @Injectable()
 export class ImgFileTypeValidationPipe implements PipeTransform<any> {
@@ -18,10 +17,11 @@ export class ImgFileTypeValidationPipe implements PipeTransform<any> {
 			!array_of_allowed_files.includes(file_extension) ||
 			!array_of_allowed_file_types.includes(value.mimetype)
 		) {
-			const field = 'file'
-			const message = 'Неверный формат!'
 			throw new ValidationException([
-				new ResponseErrorValidation(field, message),
+				{
+					field: 'file',
+					message: 'Неверный формат!',
+				},
 			])
 		}
 		return value

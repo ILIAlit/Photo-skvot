@@ -1,15 +1,15 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common'
-import { ValidationException } from '../../../exceptions/validation.exception'
-import { ResponseErrorValidation } from './dto/res-error-validation.dto'
+import { ValidationException } from 'src/infrastructure/exceptions/validation.exception'
 
 @Injectable()
 export class FileRequiredValidationPipe implements PipeTransform<any> {
 	async transform(value: any, metadata: ArgumentMetadata) {
 		if (!value) {
-			const field = 'file'
-			const message = 'Файл отсутствует!'
 			throw new ValidationException([
-				new ResponseErrorValidation(field, message),
+				{
+					field: 'file',
+					message: 'Файл отсутствует!',
+				},
 			])
 		}
 		return value

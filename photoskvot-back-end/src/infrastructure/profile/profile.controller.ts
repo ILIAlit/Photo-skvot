@@ -10,11 +10,10 @@ import {
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { IGetUserAuthInfoRequest } from 'src/domain/adapters/user/IGetUserAuthInfoRequest.interface'
 import { Profile } from 'src/domain/models/profile/profile'
-import { ResponseErrorAuthDto } from '../auth/dto/response-error-auth.dto'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
-import { ResponseErrorValidation } from '../common/pipes/validation/dto/res-error-validation.dto'
 import { ImgFileTypeValidationPipe } from '../common/pipes/validation/img-file-type-validation.pipe'
 import { ApiMultiFormData } from '../common/swagger/decorators/api-form-data.decorator'
+import { ResponseExceptionDto } from '../exceptions/dto/response-exception'
 import { UpdateProfileDto } from './dto/update-profile.dto'
 import { ProfileService } from './profile.service'
 
@@ -25,7 +24,7 @@ export class ProfileController {
 
 	@ApiOperation({ summary: 'Get user profile' })
 	@ApiResponse({ status: 200, type: Profile })
-	@ApiResponse({ status: 401, type: ResponseErrorAuthDto })
+	@ApiResponse({ status: 401, type: ResponseExceptionDto })
 	@UseGuards(JwtAuthGuard)
 	@Get()
 	async findOne(@Req() request: IGetUserAuthInfoRequest): Promise<Profile> {
@@ -36,8 +35,8 @@ export class ProfileController {
 
 	@ApiOperation({ summary: 'Update user profile' })
 	@ApiResponse({ status: 200, type: Profile })
-	@ApiResponse({ status: 400, type: ResponseErrorValidation })
-	@ApiResponse({ status: 401, type: ResponseErrorAuthDto })
+	@ApiResponse({ status: 400, type: ResponseExceptionDto })
+	@ApiResponse({ status: 401, type: ResponseExceptionDto })
 	@ApiMultiFormData({
 		avatar: { description: 'avatar', type: 'file/image', nullable: true },
 		status: {

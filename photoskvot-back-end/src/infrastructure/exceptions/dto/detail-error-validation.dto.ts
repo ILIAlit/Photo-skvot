@@ -1,6 +1,9 @@
-import { ApiOperation, ApiProperty } from '@nestjs/swagger'
+import { ApiProperty } from '@nestjs/swagger'
+import { IFormatValidationExceptionMessage } from 'src/domain/exceptions/exceptions.interface'
 
-export class ResponseErrorValidation {
+export class DetailErrorValidation
+	implements IFormatValidationExceptionMessage
+{
 	@ApiProperty({ description: 'Validation object', example: 'file' })
 	field: string
 	@ApiProperty({
