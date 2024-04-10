@@ -5,6 +5,7 @@ import { LoggerModule } from './infrastructure/logger/logger.module'
 import { PhotosModule } from './infrastructure/photos/photos.module'
 import { PostsModule } from './infrastructure/posts/posts.module'
 import { ProfileModule } from './infrastructure/profile/profile.module'
+import { CloudinaryModule } from './infrastructure/services/cloudinary/cloudinary.module'
 import { FilesModule } from './infrastructure/services/files/files.module'
 import { UsersModule } from './infrastructure/users/users.module'
 
@@ -18,6 +19,7 @@ import { UsersModule } from './infrastructure/users/users.module'
 		PostsModule,
 		FilesModule,
 		LoggerModule,
+		CloudinaryModule,
 	],
 	controllers: [],
 	providers: [],

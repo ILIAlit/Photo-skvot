@@ -67,7 +67,6 @@ export class PhotosController {
 		)
 		image: any
 	) {
-		image.tempFilePath
 		return await this.photosService.update(+postId, updatePhotoDto, image)
 	}
 }
