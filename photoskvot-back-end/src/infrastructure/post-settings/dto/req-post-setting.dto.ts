@@ -1,12 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-export class PostSetting {
-	@ApiProperty({
-		description: 'id',
-		nullable: false,
-		example: 0,
-	})
-	id: number
+export class ReqPostSettingDto {
 	@ApiProperty({
 		description: 'iso',
 		nullable: true,

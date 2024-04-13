@@ -1,4 +1,5 @@
 export class CreatePhotoDto {
 	alt: string
-	src: string
+	postId: number
+	src?: string
 }

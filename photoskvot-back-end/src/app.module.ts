@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config'
 import { AuthModule } from './infrastructure/auth/auth.module'
 import { LoggerModule } from './infrastructure/logger/logger.module'
 import { PhotosModule } from './infrastructure/photos/photos.module'
+import { PostSettingsModule } from './infrastructure/post-settings/post-settings.module'
 import { PostsModule } from './infrastructure/posts/posts.module'
 import { ProfileModule } from './infrastructure/profile/profile.module'
 import { CloudinaryModule } from './infrastructure/services/cloudinary/cloudinary.module'
@@ -20,6 +21,7 @@ import { UsersModule } from './infrastructure/users/users.module'
 		FilesModule,
 		LoggerModule,
 		CloudinaryModule,
+		PostSettingsModule,
 	],
 	controllers: [],
 	providers: [],

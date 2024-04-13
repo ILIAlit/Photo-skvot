@@ -16,7 +16,7 @@ export class PhotoRepository implements IPhotoRepository {
 		})
 	}
 	async createPhoto(dto: CreatePhotoDto): Promise<Photo> {
-		return await this.photo.create<PhotoEntity>({ ...dto })
+		return await this.photo.create<PhotoEntity>({ ...dto, post_id: dto.postId })
 	}
 	async updatePhoto(
 		dto: UpdatePhotoDto,

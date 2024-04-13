@@ -7,12 +7,17 @@ import {
 	Model,
 	Table,
 } from 'sequelize-typescript'
+import { IPostCreateAttr } from 'src/domain/adapters/entity/post/post-create-attr.interface'
 import { Post } from 'src/domain/models/post/post'
 import { PhotoEntity } from 'src/infrastructure/photos/entities/photo.entity'
+import { PostSettingEntity } from 'src/infrastructure/post-settings/entities/post-setting.entity'
 import { UserEntity } from 'src/infrastructure/users/entity/user.entity'
 
 @Table({ tableName: 'posts' })
-export class PostEntity extends Model implements Post {
+export class PostEntity
+	extends Model<PostEntity, IPostCreateAttr>
+	implements Post
+{
 	@Column({
 		type: DataType.INTEGER,
 		unique: true,
@@ -36,4 +41,7 @@ export class PostEntity extends Model implements Post {
 
 	@HasOne(() => PhotoEntity)
 	photo: PhotoEntity
+
+	@HasOne(() => PostSettingEntity)
+	postSetting: PostSettingEntity
 }

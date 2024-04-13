@@ -2,6 +2,7 @@ import { HttpException, HttpStatus } from '@nestjs/common'
 import { Sequelize } from 'sequelize-typescript'
 import { DEVELOPMENT, PRODUCTION, SEQUELIZE } from '../../domain/constants'
 import { PhotoEntity } from '../photos/entities/photo.entity'
+import { PostSettingEntity } from '../post-settings/entities/post-setting.entity'
 import { PostEntity } from '../posts/entities/post.entity'
 import { ProfileEntity } from '../profile/entity/profile'
 import { UserEntity } from '../users/entity/user.entity'
@@ -29,11 +30,15 @@ export const databaseProvider = [
 					ProfileEntity,
 					PostEntity,
 					PhotoEntity,
+					PostSettingEntity,
 				])
 				await sequelize.sync()
 				return sequelize
 			} catch (error) {
-				throw new HttpException('Ошибка!', HttpStatus.INTERNAL_SERVER_ERROR)
+				throw new HttpException(
+					'Ошибка базы данных!',
+					HttpStatus.INTERNAL_SERVER_ERROR
+				)
 			}
 		},
 	},
