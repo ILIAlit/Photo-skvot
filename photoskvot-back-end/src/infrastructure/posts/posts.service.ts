@@ -3,8 +3,8 @@ import { IPostRepository } from 'src/domain/repositories/post/postRepository.int
 import { PhotosService } from '../photos/photos.service'
 import { PostSettingsService } from '../post-settings/post-settings.service'
 import { ReqPostDto } from './dto/req-post.dto'
-import { UpdatePostDto } from './dto/update-post.dto'
 import { ResPostDto } from './dto/res-post.dto'
+import { UpdatePostDto } from './dto/update-post.dto'
 
 @Injectable()
 export class PostsService {
@@ -13,7 +13,11 @@ export class PostsService {
 		private readonly photoService: PhotosService,
 		private readonly postSettingsService: PostSettingsService
 	) {}
-	async create(reqDto: ReqPostDto, image: any, userId: number) {
+	async create(
+		reqDto: ReqPostDto,
+		image: any,
+		userId: number
+	): Promise<ResPostDto> {
 		const post = await this.postRepository.createPost({
 			title: reqDto.title,
 			description: reqDto.description,

@@ -7,7 +7,7 @@ import {
 import { plainToClass } from 'class-transformer'
 import { validate } from 'class-validator'
 import { ValidationException } from 'src/infrastructure/exceptions/validation.exception'
-import { DetailErrorValidation } from '../../../exceptions/dto/detail-error-validation.dto'
+import { errorFormatter } from '../../helpers/error-formatter'
 
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
@@ -19,12 +19,7 @@ export class ValidationPipe implements PipeTransform<any> {
 		const object = plainToClass(metadata.metatype, value)
 		const errors = await validate(object)
 		if (errors.length) {
-			let messages = errors.map(error => {
-				this.logger.error(error.property)
-				const field = error.property
-				const message = Object.values(error.constraints).join(', ')
-				return new DetailErrorValidation(field, message)
-			})
+			const messages = errorFormatter(errors)
 			throw new ValidationException(messages)
 		}
 		return value
