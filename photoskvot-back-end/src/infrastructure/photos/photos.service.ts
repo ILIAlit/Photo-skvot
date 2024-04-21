@@ -12,14 +12,21 @@ export class PhotosService {
 		private readonly photoRepository: IPhotoRepository,
 		private readonly cloudinary: CloudinaryService
 	) {}
-	async create(dto: CreatePhotoDto, imageFile: any): Promise<Photo> {
+	async create(
+		dto: CreatePhotoDto,
+		imageFile: any,
+		transactionHost: object
+	): Promise<Photo> {
 		const resImgUploaded = await this.cloudinary.uploadImage(imageFile)
 		const imageSrc = resImgUploaded.url
-		return await this.photoRepository.createPhoto({ ...dto, src: imageSrc })
+		return await this.photoRepository.createPhoto(
+			{ ...dto, src: imageSrc },
+			transactionHost
+		)
 	}
 
-	async findAll(): Promise<Photo[]> {
-		return await this.photoRepository.getPhotos()
+	async findAll(offset: number, limit: number): Promise<Photo[]> {
+		return await this.photoRepository.getPhotos(offset, limit)
 	}
 
 	async findOne(postId: number) {

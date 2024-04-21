@@ -59,10 +59,10 @@ export class PostsController {
 	}
 
 	@ApiOperation({ summary: 'Get all posts' })
-	@ApiResponse({ status: 200, type: [PostModel] })
+	@ApiResponse({ status: 200, type: [ResPostDto] })
 	@Get()
-	findAll() {
-		return this.postsService.findAll()
+	findAll(@Query() { limit, offset }) {
+		return this.postsService.findAll(offset, limit)
 	}
 
 	@ApiOperation({ summary: 'Get one post' })

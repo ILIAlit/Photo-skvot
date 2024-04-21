@@ -10,20 +10,28 @@ import { PostEntity } from './entities/post.entity'
 
 export class PostRepository implements IPostRepository {
 	constructor(@Inject('Post') private readonly photo: typeof PostEntity) {}
-	async getPosts(): Promise<ResPostDto[]> {
+	async getPosts(offset: number, limit: number): Promise<ResPostDto[]> {
 		return await this.photo.findAll<PostEntity>({
 			include: [PhotoEntity, UserEntity, PostSettingEntity],
+			offset: offset,
+			limit: limit,
 		})
 	}
 	getOnePost(postId: number): Promise<ResPostDto> {
 		throw new Error('Method not implemented.')
 	}
-	async createPost(dto: CreatePostDto): Promise<ResPostDto> {
-		return await this.photo.create<PostEntity>({
-			title: dto.title,
-			description: dto.description,
-			user_id: dto.user_id,
-		})
+	async createPost(
+		dto: CreatePostDto,
+		transactionHost: object
+	): Promise<ResPostDto> {
+		return await this.photo.create<PostEntity>(
+			{
+				title: dto.title,
+				description: dto.description,
+				user_id: dto.user_id,
+			},
+			transactionHost
+		)
 	}
 	async updatePost(
 		dto: UpdatePostDto,

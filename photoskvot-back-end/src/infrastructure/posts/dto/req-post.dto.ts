@@ -33,5 +33,5 @@ export class ReqPostDto {
 		plainToClass(CreatePostSettingDto, JSON.parse(value))
 	)
 	@Type(() => CreatePostSettingDto)
-	settings: CreatePostSettingDto
+	settings: string
 }

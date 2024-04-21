@@ -7,16 +7,25 @@ import { PhotoEntity } from './entities/photo.entity'
 
 export class PhotoRepository implements IPhotoRepository {
 	constructor(@Inject('Photo') private readonly photo: typeof PhotoEntity) {}
-	async getPhotos(): Promise<Photo[]> {
-		return await this.photo.findAll<PhotoEntity>()
+	async getPhotos(offset: number, limit: number): Promise<Photo[]> {
+		return await this.photo.findAll<PhotoEntity>({
+			limit,
+			offset,
+		})
 	}
 	async getOnePhoto(postId: number): Promise<Photo> {
 		return await this.photo.findOne<PhotoEntity>({
 			where: { id: postId },
 		})
 	}
-	async createPhoto(dto: CreatePhotoDto): Promise<Photo> {
-		return await this.photo.create<PhotoEntity>({ ...dto, post_id: dto.postId })
+	async createPhoto(
+		dto: CreatePhotoDto,
+		transactionHost: object
+	): Promise<Photo> {
+		return await this.photo.create<PhotoEntity>(
+			{ ...dto, post_id: dto.postId },
+			transactionHost
+		)
 	}
 	async updatePhoto(
 		dto: UpdatePhotoDto,

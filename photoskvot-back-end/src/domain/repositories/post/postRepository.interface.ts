@@ -3,12 +3,13 @@ import { ResPostDto } from 'src/infrastructure/posts/dto/res-post.dto'
 import { UpdatePostDto } from 'src/infrastructure/posts/dto/update-post.dto'
 
 export interface IPostRepository {
-	getPosts(): Promise<ResPostDto[]>
+	getPosts(offset: number, limit: number): Promise<ResPostDto[]>
 	getOnePost(postId: number): Promise<ResPostDto>
-	createPost(dto: CreatePostDto): Promise<ResPostDto>
+	createPost(dto: CreatePostDto, transactionHost: object): Promise<ResPostDto>
 	updatePost(
 		dto: UpdatePostDto,
 		postId: number,
-		imageSrc: string
+		imageSrc: string,
+		transactionHost: object
 	): Promise<ResPostDto>
 }
