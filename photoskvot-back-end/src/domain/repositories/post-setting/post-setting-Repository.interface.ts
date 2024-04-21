@@ -3,7 +3,10 @@ import { CreatePostSettingDto } from 'src/infrastructure/post-settings/dto/creat
 import { UpdatePostSettingDto } from 'src/infrastructure/post-settings/dto/update-post-setting.dto'
 
 export interface IPostSettingRepository {
-	createPostSettings(dto: CreatePostSettingDto): Promise<PostSettings>
+	createPostSettings(
+		dto: CreatePostSettingDto,
+		postId: number
+	): Promise<PostSettings>
 	getPostSetting(postId: number): Promise<PostSettings>
 	updatePostSetting(
 		dto: UpdatePostSettingDto,

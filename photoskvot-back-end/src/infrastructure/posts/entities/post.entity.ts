@@ -43,5 +43,5 @@ export class PostEntity
 	photo: PhotoEntity
 
 	@HasOne(() => PostSettingEntity)
-	postSetting: PostSettingEntity
+	post_settings: PostSettingEntity
 }

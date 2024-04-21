@@ -1,10 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Photo } from 'src/domain/models/photo/photo'
+import { PostSettings } from 'src/domain/models/post-settings/post-settings'
 import { User } from 'src/domain/models/user/user'
-import { CreatePostSettingDto } from 'src/infrastructure/post-settings/dto/create-post-setting.dto'
 
 export class ResPostDto {
+	@ApiProperty({
+		description: 'post id',
+		example: 0,
+	})
 	id: number
+
 	@ApiProperty({
 		description: 'post title',
 		example: 'post 1',
@@ -20,11 +25,22 @@ export class ResPostDto {
 	// 	example: 'post 1',
 	// })
 	// tags: Array<string>
+
 	@ApiProperty({
 		description: 'post settings',
-		example: CreatePostSettingDto,
+		example: PostSettings,
 	})
-	//post_settings: CreatePostSettingDto
+	post_settings: PostSettings
+
+	@ApiProperty({
+		description: 'post photo',
+		example: Photo,
+	})
 	photo: Photo
+
+	@ApiProperty({
+		description: 'user',
+		example: User,
+	})
 	user: User
 }

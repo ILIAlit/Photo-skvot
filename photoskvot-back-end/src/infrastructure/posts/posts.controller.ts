@@ -12,7 +12,13 @@ import {
 	UseInterceptors,
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger'
+import {
+	ApiConsumes,
+	ApiOperation,
+	ApiQuery,
+	ApiResponse,
+	ApiTags,
+} from '@nestjs/swagger'
 import { IGetUserAuthInfoRequest } from 'src/domain/adapters/user/IGetUserAuthInfoRequest.interface'
 import { Post as PostModel } from '../../domain/models/post/post'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
@@ -21,6 +27,7 @@ import { ImgFileTypeValidationPipe } from '../common/pipes/validation/img-file-t
 import { ResponseExceptionDto } from '../exceptions/dto/response-exception'
 import { ReqPostDto } from './dto/req-post.dto'
 import { RequestQueryDto } from './dto/request-query.dto'
+import { ResPostDto } from './dto/res-post.dto'
 import { UpdatePostDto } from './dto/update-post.dto'
 import { PostsService } from './posts.service'
 
@@ -30,7 +37,8 @@ export class PostsController {
 	constructor(private readonly postsService: PostsService) {}
 
 	@ApiOperation({ summary: 'Create new post' })
-	@ApiResponse({ status: 200, type: PostModel })
+	@ApiConsumes('multipart/form-data')
+	@ApiResponse({ status: 200, type: ResPostDto })
 	@ApiResponse({ status: 400, type: ResponseExceptionDto })
 	@ApiResponse({ status: 401, type: ResponseExceptionDto })
 	@UseGuards(JwtAuthGuard)
@@ -67,12 +75,13 @@ export class PostsController {
 	}
 
 	@ApiOperation({ summary: 'Update post' })
-	@ApiResponse({ status: 200, type: PostModel })
+	@ApiResponse({ status: 200, type: ResPostDto })
 	@ApiResponse({ status: 400, type: ResponseExceptionDto })
 	@ApiResponse({ status: 401, type: ResponseExceptionDto })
 	@ApiQuery({ name: 'postId' })
 	@UseGuards(JwtAuthGuard)
 	@Patch()
+	@UseInterceptors(FileInterceptor('image'))
 	update(
 		@Query() { postId }: RequestQueryDto,
 		@Body() updatePostDto: UpdatePostDto,

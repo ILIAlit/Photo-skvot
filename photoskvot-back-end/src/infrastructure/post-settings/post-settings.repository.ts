@@ -10,10 +10,13 @@ export class PostSettingsRepository implements IPostSettingRepository {
 		@Inject('PostSettings')
 		private readonly postSettings: typeof PostSettingEntity
 	) {}
-	async createPostSettings(dto: CreatePostSettingDto): Promise<PostSettings> {
+	async createPostSettings(
+		dto: CreatePostSettingDto,
+		postId: number
+	): Promise<PostSettings> {
 		return await this.postSettings.create<PostSettingEntity>({
 			...dto,
-			post_id: dto.postId,
+			post_id: postId,
 		})
 	}
 	async getPostSetting(postId: number): Promise<PostSettings> {

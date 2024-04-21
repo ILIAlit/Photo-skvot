@@ -10,17 +10,20 @@ export class ReqPostDto {
 		example: 'post 1',
 	})
 	title: string
+
 	@ApiProperty({
 		description: 'post description',
 		example: 'post 1 description',
 	})
 	@IsString({ message: 'Не является строкой!' })
 	description: string
-	// @ApiProperty({
-	// 	description: 'post tags',
-	// 	example: 'post 1',
-	// })
-	// tags: Array<string>
+
+	@ApiProperty({
+		description: 'post tags',
+		example: ['photo', 'city'],
+	})
+	tags: Array<string>
+
 	@ApiProperty({
 		description: 'post settings',
 		example: CreatePostSettingDto,
