@@ -4,6 +4,7 @@ import {
 	Column,
 	DataType,
 	ForeignKey,
+	HasMany,
 	HasOne,
 	Model,
 	Table,
@@ -15,6 +16,7 @@ import { PostSettingEntity } from 'src/infrastructure/post-settings/entities/pos
 import { TagEntity } from 'src/infrastructure/tags/entities/tag.entity'
 import { UserEntity } from 'src/infrastructure/users/entity/user.entity'
 import { TagPostEntity } from './tag-post.entity'
+import { LikeEntity } from 'src/infrastructure/likes/entities/like.entity'
 
 @Table({ tableName: 'posts' })
 export class PostEntity
@@ -50,4 +52,7 @@ export class PostEntity
 
 	@BelongsToMany(() => TagEntity, () => TagPostEntity)
 	tags: TagEntity[]
+
+	@HasMany(() => LikeEntity)
+	likes: LikeEntity[]
 }
