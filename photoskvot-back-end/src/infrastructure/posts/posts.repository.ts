@@ -2,6 +2,7 @@ import { Inject } from '@nestjs/common'
 import { IPostRepository } from 'src/domain/repositories/post/postRepository.interface'
 import { PhotoEntity } from '../photos/entities/photo.entity'
 import { PostSettingEntity } from '../post-settings/entities/post-setting.entity'
+import { TagEntity } from '../tags/entities/tag.entity'
 import { UserEntity } from '../users/entity/user.entity'
 import { CreatePostDto } from './dto/create-post.dto'
 import { ResPostDto } from './dto/res-post.dto'
@@ -9,22 +10,24 @@ import { UpdatePostDto } from './dto/update-post.dto'
 import { PostEntity } from './entities/post.entity'
 
 export class PostRepository implements IPostRepository {
-	constructor(@Inject('Post') private readonly photo: typeof PostEntity) {}
-	async getPosts(offset: number, limit: number): Promise<ResPostDto[]> {
-		return await this.photo.findAll<PostEntity>({
-			include: [PhotoEntity, UserEntity, PostSettingEntity],
+	constructor(@Inject('Post') private readonly post: typeof PostEntity) {}
+	async getPosts(offset: number, limit: number): Promise<PostEntity[]> {
+		return await this.post.findAll<PostEntity>({
 			offset: offset,
 			limit: limit,
 		})
 	}
-	getOnePost(postId: number): Promise<ResPostDto> {
-		throw new Error('Method not implemented.')
+	async getOnePost(postId: number): Promise<ResPostDto> {
+		return await this.post.findOne<PostEntity>({
+			include: [UserEntity, PostSettingEntity, PhotoEntity, TagEntity],
+			where: { id: postId },
+		})
 	}
 	async createPost(
 		dto: CreatePostDto,
 		transactionHost: object
-	): Promise<ResPostDto> {
-		return await this.photo.create<PostEntity>(
+	): Promise<PostEntity> {
+		return await this.post.create<PostEntity>(
 			{
 				title: dto.title,
 				description: dto.description,
@@ -40,4 +43,6 @@ export class PostRepository implements IPostRepository {
 	): Promise<ResPostDto> {
 		throw new Error('Method not implemented.')
 	}
+
+	async deletePost(postId: number): Promise<void> {}
 }

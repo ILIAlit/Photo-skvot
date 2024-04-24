@@ -4,7 +4,9 @@ import { DEVELOPMENT, PRODUCTION, SEQUELIZE } from '../../domain/constants'
 import { PhotoEntity } from '../photos/entities/photo.entity'
 import { PostSettingEntity } from '../post-settings/entities/post-setting.entity'
 import { PostEntity } from '../posts/entities/post.entity'
+import { TagPostEntity } from '../posts/entities/tag-post.entity'
 import { ProfileEntity } from '../profile/entity/profile'
+import { TagEntity } from '../tags/entities/tag.entity'
 import { UserEntity } from '../users/entity/user.entity'
 import { databaseConfig } from './database.config'
 
@@ -31,6 +33,8 @@ export const databaseProvider = [
 					PostEntity,
 					PhotoEntity,
 					PostSettingEntity,
+					TagEntity,
+					TagPostEntity,
 				])
 				await sequelize.sync()
 				return sequelize

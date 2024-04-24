@@ -5,7 +5,8 @@ import { UpdatePostSettingDto } from 'src/infrastructure/post-settings/dto/updat
 export interface IPostSettingRepository {
 	createPostSettings(
 		dto: CreatePostSettingDto,
-		postId: number
+		postId: number,
+		transactionHost: object
 	): Promise<PostSettings>
 	getPostSetting(postId: number): Promise<PostSettings>
 	updatePostSetting(

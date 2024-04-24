@@ -9,6 +9,7 @@ import { PostsModule } from './infrastructure/posts/posts.module'
 import { ProfileModule } from './infrastructure/profile/profile.module'
 import { CloudinaryModule } from './infrastructure/services/cloudinary/cloudinary.module'
 import { FilesModule } from './infrastructure/services/files/files.module'
+import { TagsModule } from './infrastructure/tags/tags.module'
 import { UsersModule } from './infrastructure/users/users.module'
 
 @Module({
@@ -24,6 +25,7 @@ import { UsersModule } from './infrastructure/users/users.module'
 		LoggerModule,
 		CloudinaryModule,
 		PostSettingsModule,
+		TagsModule,
 	],
 	controllers: [],
 	providers: [],

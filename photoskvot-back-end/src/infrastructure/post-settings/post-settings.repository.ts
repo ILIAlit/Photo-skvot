@@ -12,12 +12,16 @@ export class PostSettingsRepository implements IPostSettingRepository {
 	) {}
 	async createPostSettings(
 		dto: CreatePostSettingDto,
-		postId: number
+		postId: number,
+		transactionHost: object
 	): Promise<PostSettings> {
-		return await this.postSettings.create<PostSettingEntity>({
-			...dto,
-			post_id: postId,
-		})
+		return await this.postSettings.create<PostSettingEntity>(
+			{
+				...dto,
+				post_id: postId,
+			},
+			transactionHost
+		)
 	}
 	async getPostSetting(postId: number): Promise<PostSettings> {
 		return await this.postSettings.findOne({

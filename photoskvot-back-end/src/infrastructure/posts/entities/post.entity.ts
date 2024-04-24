@@ -1,5 +1,6 @@
 import {
 	BelongsTo,
+	BelongsToMany,
 	Column,
 	DataType,
 	ForeignKey,
@@ -11,7 +12,9 @@ import { IPostCreateAttr } from 'src/domain/adapters/entity/post/post-create-att
 import { Post } from 'src/domain/models/post/post'
 import { PhotoEntity } from 'src/infrastructure/photos/entities/photo.entity'
 import { PostSettingEntity } from 'src/infrastructure/post-settings/entities/post-setting.entity'
+import { TagEntity } from 'src/infrastructure/tags/entities/tag.entity'
 import { UserEntity } from 'src/infrastructure/users/entity/user.entity'
+import { TagPostEntity } from './tag-post.entity'
 
 @Table({ tableName: 'posts' })
 export class PostEntity
@@ -44,4 +47,7 @@ export class PostEntity
 
 	@HasOne(() => PostSettingEntity)
 	post_settings: PostSettingEntity
+
+	@BelongsToMany(() => TagEntity, () => TagPostEntity)
+	tags: TagEntity[]
 }

@@ -9,8 +9,16 @@ export class PostSettingsService {
 		@Inject('IPostSettingsRepository')
 		private readonly postSettingsRepository: IPostSettingRepository
 	) {}
-	create(dto: CreatePostSettingDto) {
-		return 'This action adds a new postSetting'
+	async create(
+		dto: CreatePostSettingDto,
+		postId: number,
+		transactionHost: object
+	) {
+		return await this.postSettingsRepository.createPostSettings(
+			dto,
+			postId,
+			transactionHost
+		)
 	}
 
 	findOne(postId: number) {

@@ -1,9 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Photo } from 'src/domain/models/photo/photo'
 import { PostSettings } from 'src/domain/models/post-settings/post-settings'
+import { Tag } from 'src/domain/models/tag/tag'
 import { User } from 'src/domain/models/user/user'
 
 export class ResPostDto {
+	constructor(post, postSettings, photo, tags, user) {
+		this.id = post.id
+		this.title = post.title
+		this.description = post.description
+		this.photo = post.photo
+		this.post_settings = postSettings
+		this.user = user
+		this.photo = photo
+		this.tags = tags
+	}
+
 	@ApiProperty({
 		description: 'post id',
 		example: 0,
@@ -20,11 +32,11 @@ export class ResPostDto {
 		example: 'post 1 description',
 	})
 	description: string
-	// @ApiProperty({
-	// 	description: 'post tags',
-	// 	example: 'post 1',
-	// })
-	// tags: Array<string>
+	@ApiProperty({
+		description: 'post tags',
+		example: ['post', 'photo'],
+	})
+	tags: Tag[]
 
 	@ApiProperty({
 		description: 'post settings',

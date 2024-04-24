@@ -22,7 +22,8 @@ export class ReqPostDto {
 		description: 'post tags',
 		example: ['photo', 'city'],
 	})
-	tags: Array<string>
+	@IsString({ message: 'Не является строкой!' })
+	tags: string
 
 	@ApiProperty({
 		description: 'post settings',

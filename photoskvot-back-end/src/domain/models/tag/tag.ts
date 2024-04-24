@@ -10,7 +10,7 @@ export class Tag {
 	@ApiProperty({
 		description: 'type',
 		nullable: false,
-		example: 'admin',
+		example: 'photo',
 	})
 	type: string
 }
