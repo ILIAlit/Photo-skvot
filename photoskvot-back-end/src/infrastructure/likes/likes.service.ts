@@ -25,6 +25,10 @@ export class LikesService {
 		}
 	}
 
+	async getUserLike(userId: number) {
+		return this.likeRepository.getUserLike(userId)
+	}
+
 	async delete(userId: number, postId: number) {
 		try {
 			const deleted = await this.likeRepository.delete(userId, postId)

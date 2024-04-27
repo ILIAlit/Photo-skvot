@@ -1,10 +1,9 @@
 import { Inject } from '@nestjs/common'
 import { Like } from 'src/domain/models/like/like'
-import { Post } from 'src/domain/models/post/post'
 import { ILikeRepository } from 'src/domain/repositories/like/likeRepository.interface'
-import { ResLikeDto } from './dto/res-like.dto'
-import { LikeEntity } from './entities/like.entity'
 import { PostEntity } from '../posts/entities/post.entity'
+import { ResGetLikeDto } from './dto/res-get-like.dto'
+import { LikeEntity } from './entities/like.entity'
 
 export class LikeRepository implements ILikeRepository {
 	constructor(@Inject('Like') private readonly like: typeof LikeEntity) {}
@@ -16,7 +15,7 @@ export class LikeRepository implements ILikeRepository {
 			},
 		})
 	}
-	async getUserLike(userId: number): Promise<Like[]> {
+	async getUserLike(userId: number): Promise<ResGetLikeDto[]> {
 		return await this.like.findAll<LikeEntity>({
 			include: [PostEntity],
 			where: {

@@ -2,6 +2,7 @@ import { Inject } from '@nestjs/common'
 import { Favorite } from 'src/domain/models/favorite/favorite'
 import { IFavoriteRepository } from 'src/domain/repositories/favorite/favoriteRepository.interface'
 import { PostEntity } from '../posts/entities/post.entity'
+import { ResGetFavoriteDto } from './dto/res-get-favorite.dto'
 import { FavoriteEntity } from './entities/favorite.entity'
 
 export class FavoriteRepository implements IFavoriteRepository {
@@ -30,7 +31,7 @@ export class FavoriteRepository implements IFavoriteRepository {
 			},
 		})
 	}
-	async getUserFavorite(userId: number): Promise<Favorite[]> {
+	async getUserFavorite(userId: number): Promise<ResGetFavoriteDto[]> {
 		return await this.favorite.findAll<FavoriteEntity>({
 			include: [PostEntity],
 			where: {
