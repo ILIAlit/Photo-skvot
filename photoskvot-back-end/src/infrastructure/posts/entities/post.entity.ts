@@ -11,12 +11,13 @@ import {
 } from 'sequelize-typescript'
 import { IPostCreateAttr } from 'src/domain/adapters/entity/post/post-create-attr.interface'
 import { Post } from 'src/domain/models/post/post'
+import { FavoriteEntity } from 'src/infrastructure/favorites/entities/favorite.entity'
+import { LikeEntity } from 'src/infrastructure/likes/entities/like.entity'
 import { PhotoEntity } from 'src/infrastructure/photos/entities/photo.entity'
 import { PostSettingEntity } from 'src/infrastructure/post-settings/entities/post-setting.entity'
 import { TagEntity } from 'src/infrastructure/tags/entities/tag.entity'
 import { UserEntity } from 'src/infrastructure/users/entity/user.entity'
 import { TagPostEntity } from './tag-post.entity'
-import { LikeEntity } from 'src/infrastructure/likes/entities/like.entity'
 
 @Table({ tableName: 'posts' })
 export class PostEntity
@@ -55,4 +56,7 @@ export class PostEntity
 
 	@HasMany(() => LikeEntity)
 	likes: LikeEntity[]
+
+	@HasMany(() => FavoriteEntity)
+	favorites: FavoriteEntity[]
 }
