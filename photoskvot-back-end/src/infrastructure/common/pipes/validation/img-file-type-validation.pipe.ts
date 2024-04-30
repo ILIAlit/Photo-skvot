@@ -8,6 +8,9 @@ import { ValidationException } from 'src/infrastructure/exceptions/validation.ex
 @Injectable()
 export class ImgFileTypeValidationPipe implements PipeTransform<any> {
 	async transform(value: any, metadata: ArgumentMetadata) {
+		if (!value) {
+			return value
+		}
 		const array_of_allowed_files = ARRAY_OF_ALLOWED_FILES
 		const array_of_allowed_file_types = ARRAY_OF_ALLOWED_FILE_TYPES
 		const file_extension = value.originalname.slice(

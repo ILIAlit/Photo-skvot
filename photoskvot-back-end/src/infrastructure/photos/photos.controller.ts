@@ -28,8 +28,8 @@ export class PhotosController {
 	@ApiOperation({ summary: 'Get all photo' })
 	@ApiResponse({ status: 200, type: [Photo] })
 	@Get()
-	findAll(@Query() { limit, offset }) {
-		return this.photosService.findAll(offset, limit)
+	findAll(@Query() { limit, page }) {
+		return this.photosService.findAll(page, limit)
 	}
 
 	@ApiOperation({ summary: 'Get one photo' })

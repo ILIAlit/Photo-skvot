@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { AuthModule } from './infrastructure/auth/auth.module'
+import { CommentsModule } from './infrastructure/comments/comments.module'
 import { DatabaseModule } from './infrastructure/database/database.module'
 import { FavoritesModule } from './infrastructure/favorites/favorites.module'
 import { LikesModule } from './infrastructure/likes/likes.module'
@@ -30,6 +31,7 @@ import { UsersModule } from './infrastructure/users/users.module'
 		TagsModule,
 		LikesModule,
 		FavoritesModule,
+		CommentsModule,
 	],
 	controllers: [],
 	providers: [],

@@ -11,6 +11,7 @@ import {
 } from 'sequelize-typescript'
 import { IPostCreateAttr } from 'src/domain/adapters/entity/post/post-create-attr.interface'
 import { Post } from 'src/domain/models/post/post'
+import { CommentEntity } from 'src/infrastructure/comments/entities/comment.entity'
 import { FavoriteEntity } from 'src/infrastructure/favorites/entities/favorite.entity'
 import { LikeEntity } from 'src/infrastructure/likes/entities/like.entity'
 import { PhotoEntity } from 'src/infrastructure/photos/entities/photo.entity'
@@ -59,4 +60,7 @@ export class PostEntity
 
 	@HasMany(() => FavoriteEntity)
 	favorites: FavoriteEntity[]
+
+	@HasMany(() => CommentEntity)
+	comments: CommentEntity[]
 }

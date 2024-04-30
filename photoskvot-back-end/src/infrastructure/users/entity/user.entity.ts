@@ -8,6 +8,7 @@ import {
 } from 'sequelize-typescript'
 import { IUserCreateAttr } from 'src/domain/adapters/entity/user/user-create-attr.interface'
 import { User, UserRole } from 'src/domain/models/user/user'
+import { CommentEntity } from 'src/infrastructure/comments/entities/comment.entity'
 import { FavoriteEntity } from 'src/infrastructure/favorites/entities/favorite.entity'
 import { LikeEntity } from 'src/infrastructure/likes/entities/like.entity'
 import { PostEntity } from 'src/infrastructure/posts/entities/post.entity'
@@ -57,4 +58,7 @@ export class UserEntity
 
 	@HasMany(() => FavoriteEntity)
 	favorites: FavoriteEntity[]
+
+	@HasMany(() => CommentEntity)
+	comments: CommentEntity[]
 }

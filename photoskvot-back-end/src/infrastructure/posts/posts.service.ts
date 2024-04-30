@@ -79,9 +79,11 @@ export class PostsService {
 		return await this.postRepository.getOnePost(id)
 	}
 
-	async update(id: number, updatePostDto: UpdatePostDto, image: any) {
-		return await this.postRepository.updatePost(updatePostDto, id, image)
+	async update(id: number, updatePostDto: UpdatePostDto) {
+		return await this.postRepository.updatePost(updatePostDto, id)
 	}
 
-	async remove(id: number) {}
+	async remove(id: number) {
+		return await this.postRepository.deletePost(id)
+	}
 }

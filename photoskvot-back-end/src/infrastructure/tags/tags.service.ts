@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { ITagRepository } from 'src/domain/repositories/tag/tagRepository.repository'
 import { CreateTagDto } from './dto/create-tag.dto'
-import { UpdateTagDto } from './dto/update-tag.dto'
 
 @Injectable()
 export class TagsService {
@@ -18,7 +17,7 @@ export class TagsService {
 					await createTagDto.post.$set('tags', [tag.id], transactionHost)
 					return tag
 				}
-				await createTagDto.post.$set('tags', [tag.id], transactionHost)
+				await createTagDto.post.$add('tags', [tag.id], transactionHost)
 				return tag
 			})
 		)
@@ -28,12 +27,8 @@ export class TagsService {
 		return await this.tagRepository.getTags(offset, limit)
 	}
 
-	async findPostTags(id: number, offset: number, limit: number) {
-		return await this.tagRepository.getPostTags(id, offset, limit)
-	}
-
-	async update(id: number, updateTagDto: UpdateTagDto) {
-		return await this.tagRepository.updateTag(updateTagDto, id)
+	async findPostTags(id: number) {
+		return await this.tagRepository.getPostTags(id)
 	}
 
 	async remove(id: number) {

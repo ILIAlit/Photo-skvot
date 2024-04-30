@@ -21,11 +21,14 @@ export class PostSettingsService {
 		)
 	}
 
-	findOne(postId: number) {
-		return `This action returns a #${postId} postSetting`
+	async findOne(postId: number) {
+		return await this.postSettingsRepository.getPostSetting(postId)
 	}
 
-	update(postId: number, updatePostSettingDto: UpdatePostSettingDto) {
-		return `This action updates a #${postId} postSetting`
+	async update(postId: number, updatePostSettingDto: UpdatePostSettingDto) {
+		return await this.postSettingsRepository.updatePostSetting(
+			updatePostSettingDto,
+			postId
+		)
 	}
 }

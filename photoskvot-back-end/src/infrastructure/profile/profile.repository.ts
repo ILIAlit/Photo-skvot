@@ -18,10 +18,11 @@ export class ProfileRepository implements IProfileRepository {
 	}
 	async updateProfile(
 		updateProfileDto: UpdateProfileDto,
-		userId: number
+		userId: number,
+		avatar: string
 	): Promise<Profile> {
 		const [updateRow, updateData] = await this.profile.update<ProfileEntity>(
-			{ ...updateProfileDto },
+			{ ...updateProfileDto, avatar },
 			{
 				where: { user_id: userId },
 				returning: true,

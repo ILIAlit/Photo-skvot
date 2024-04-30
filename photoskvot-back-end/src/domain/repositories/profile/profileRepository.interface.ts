@@ -6,6 +6,7 @@ export interface IProfileRepository {
 	createProfile(): Promise<Profile>
 	updateProfile(
 		updateProfileDto: UpdateProfileDto,
-		userId: number
+		userId: number,
+		avatar: string
 	): Promise<Profile>
 }

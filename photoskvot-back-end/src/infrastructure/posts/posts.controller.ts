@@ -78,34 +78,27 @@ export class PostsController {
 	}
 
 	@ApiOperation({ summary: 'Update post' })
-	@ApiConsumes('multipart/form-data')
-	@ApiResponse({ status: 200, type: ResPostDto })
+	@ApiResponse({ status: 200, type: PostModel })
 	@ApiResponse({ status: 400, type: ResponseExceptionDto })
 	@ApiResponse({ status: 401, type: ResponseExceptionDto })
 	@ApiQuery({ name: 'postId' })
 	@UseGuards(JwtAuthGuard)
 	@Patch()
-	@UseInterceptors(FileInterceptor('image'))
 	update(
 		@Query() { postId }: RequestQueryDto,
-		@Body() updatePostDto: UpdatePostDto,
-		@UploadedFile(
-			new FileRequiredValidationPipe(),
-			new ImgFileTypeValidationPipe()
-		)
-		image: any
-	): Promise<ResPostDto> {
-		return this.postsService.update(+postId, updatePostDto, image)
+		@Body() updatePostDto: UpdatePostDto
+	): Promise<PostModel> {
+		return this.postsService.update(+postId, updatePostDto)
 	}
 
 	@ApiOperation({ summary: 'Delete post' })
-	@ApiResponse({ status: 200 })
+	@ApiResponse({ status: 200, type: Number })
 	@ApiResponse({ status: 400, type: ResponseExceptionDto })
 	@ApiResponse({ status: 401, type: ResponseExceptionDto })
 	@ApiQuery({ name: 'postId' })
 	@UseGuards(JwtAuthGuard)
 	@Delete()
-	remove(@Query() { postId }: RequestQueryDto): Promise<void> {
+	remove(@Query() { postId }: RequestQueryDto): Promise<number> {
 		return this.postsService.remove(+postId)
 	}
 }

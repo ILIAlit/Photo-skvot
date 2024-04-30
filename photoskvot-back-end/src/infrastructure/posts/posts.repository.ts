@@ -1,11 +1,7 @@
 import { Inject } from '@nestjs/common'
+import { Post } from 'src/domain/models/post/post'
 import { IPostRepository } from 'src/domain/repositories/post/postRepository.interface'
-import { PhotoEntity } from '../photos/entities/photo.entity'
-import { PostSettingEntity } from '../post-settings/entities/post-setting.entity'
-import { TagEntity } from '../tags/entities/tag.entity'
-import { UserEntity } from '../users/entity/user.entity'
 import { CreatePostDto } from './dto/create-post.dto'
-import { ResPostDto } from './dto/res-post.dto'
 import { UpdatePostDto } from './dto/update-post.dto'
 import { PostEntity } from './entities/post.entity'
 
@@ -17,9 +13,8 @@ export class PostRepository implements IPostRepository {
 			limit: limit,
 		})
 	}
-	async getOnePost(postId: number): Promise<ResPostDto> {
+	async getOnePost(postId: number): Promise<Post> {
 		return await this.post.findOne<PostEntity>({
-			include: [UserEntity, PostSettingEntity, PhotoEntity, TagEntity],
 			where: { id: postId },
 		})
 	}
@@ -36,13 +31,15 @@ export class PostRepository implements IPostRepository {
 			transactionHost
 		)
 	}
-	async updatePost(
-		dto: UpdatePostDto,
-		postId: number,
-		imageSrc: string
-	): Promise<ResPostDto> {
-		throw new Error('Method not implemented.')
+	async updatePost(dto: UpdatePostDto, postId: number): Promise<Post> {
+		const [updateRow, updateData] = await this.post.update<PostEntity>(
+			{ ...dto },
+			{ where: { id: postId }, returning: true }
+		)
+		return updateData[0]
 	}
 
-	async deletePost(postId: number): Promise<void> {}
+	async deletePost(postId: number): Promise<number> {
+		return await this.post.destroy<PostEntity>({ where: { id: postId } })
+	}
 }

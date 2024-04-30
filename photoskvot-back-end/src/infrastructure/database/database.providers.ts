@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus } from '@nestjs/common'
 import { Sequelize } from 'sequelize-typescript'
 import { DEVELOPMENT, PRODUCTION, SEQUELIZE } from '../../domain/constants'
+import { CommentEntity } from '../comments/entities/comment.entity'
 import { FavoriteEntity } from '../favorites/entities/favorite.entity'
 import { LikeEntity } from '../likes/entities/like.entity'
 import { PhotoEntity } from '../photos/entities/photo.entity'
@@ -39,6 +40,7 @@ export const databaseProvider = [
 					TagPostEntity,
 					LikeEntity,
 					FavoriteEntity,
+					CommentEntity,
 				])
 				await sequelize.sync()
 				return sequelize

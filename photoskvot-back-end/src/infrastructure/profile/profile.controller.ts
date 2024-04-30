@@ -6,7 +6,9 @@ import {
 	Req,
 	UploadedFile,
 	UseGuards,
+	UseInterceptors,
 } from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { IGetUserAuthInfoRequest } from 'src/domain/adapters/user/IGetUserAuthInfoRequest.interface'
 import { Profile } from 'src/domain/models/profile/profile'
@@ -58,8 +60,9 @@ export class ProfileController {
 			example: 'example-profile-social-link',
 		},
 	})
+	@UseInterceptors(FileInterceptor('avatar'))
 	@UseGuards(JwtAuthGuard)
-	@Patch('update')
+	@Patch()
 	async update(
 		@Req() request: IGetUserAuthInfoRequest,
 		@Body() updateProfileDto: UpdateProfileDto,
@@ -67,6 +70,10 @@ export class ProfileController {
 	): Promise<Profile> {
 		const user = await request.user
 		const userId = user.id
-		return await this.profileService.updateProfile(updateProfileDto, userId)
+		return await this.profileService.updateProfile(
+			updateProfileDto,
+			userId,
+			avatar
+		)
 	}
 }
