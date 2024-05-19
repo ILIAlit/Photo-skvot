@@ -22,6 +22,8 @@ async function start() {
 	SwaggerModule.setup('api', app, document)
 
 	app.setGlobalPrefix('api/v1')
+
+	app.enableCors()
 	await app.listen(PORT, () => console.log('Service started on port ' + PORT))
 }
 

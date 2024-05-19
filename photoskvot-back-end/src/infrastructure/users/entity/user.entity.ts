@@ -12,7 +12,7 @@ import { CommentEntity } from 'src/infrastructure/comments/entities/comment.enti
 import { FavoriteEntity } from 'src/infrastructure/favorites/entities/favorite.entity'
 import { LikeEntity } from 'src/infrastructure/likes/entities/like.entity'
 import { PostEntity } from 'src/infrastructure/posts/entities/post.entity'
-import { ProfileEntity } from 'src/infrastructure/profile/entity/profile'
+import { ProfileEntity } from 'src/infrastructure/profile/entity/profile.entity'
 
 @Table({ tableName: 'users' })
 export class UserEntity

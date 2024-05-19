@@ -2,7 +2,7 @@ import { Inject } from '@nestjs/common'
 import { Profile } from 'src/domain/models/profile/profile'
 import { IProfileRepository } from 'src/domain/repositories/profile/profileRepository.interface'
 import { UpdateProfileDto } from './dto/update-profile.dto'
-import { ProfileEntity } from './entity/profile'
+import { ProfileEntity } from './entity/profile.entity'
 
 export class ProfileRepository implements IProfileRepository {
 	constructor(
