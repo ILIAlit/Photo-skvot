@@ -3,7 +3,7 @@
 import AuthButton from '@/components/UI/buttons/AuthButton'
 import { InputField } from '@/components/UI/inputs/InputField'
 import { PUBLIC_PAGES } from '@/config/public-pages-url.config'
-import { authService } from '@/services/auth.service'
+import UserStore from '@/stores/UserStore'
 import { ILoginForm } from '@/types/auth.types'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
@@ -19,7 +19,7 @@ export default function Login() {
 
 	const { mutate } = useMutation({
 		mutationKey: ['login'],
-		mutationFn: (data: ILoginForm) => authService.login(data),
+		mutationFn: (data: ILoginForm) => UserStore.login(data),
 		onSuccess: () => {
 			toast.success('Успешный вход')
 			reset()

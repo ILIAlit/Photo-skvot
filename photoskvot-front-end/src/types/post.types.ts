@@ -11,6 +11,14 @@ export interface IPost extends IBaseType {
 export interface IPostForm {
 	title: string
 	description: string
+	tags: string
+	image: File[]
+	settings: IPostSetting
+}
+
+export interface IPostRequestForm {
+	title: string
+	description: string
 	tags: string[]
 	image: File
 	settings: IPostSetting

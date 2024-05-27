@@ -3,7 +3,7 @@
 import AuthButton from '@/components/UI/buttons/AuthButton'
 import { InputField } from '@/components/UI/inputs/InputField'
 import { PUBLIC_PAGES } from '@/config/public-pages-url.config'
-import { authService } from '@/services/auth.service'
+import UserStore from '@/stores/UserStore'
 import { IRegisterForm } from '@/types/auth.types'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
@@ -19,7 +19,7 @@ export default function Register() {
 
 	const { mutate } = useMutation({
 		mutationKey: ['register'],
-		mutationFn: (data: IRegisterForm) => authService.register(data),
+		mutationFn: (data: IRegisterForm) => UserStore.register(data),
 		onSuccess: () => {
 			toast.success('Успешная регистрация')
 			reset()

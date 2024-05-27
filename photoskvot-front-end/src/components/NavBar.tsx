@@ -1,37 +1,47 @@
 'use client'
 
+import { PRIVATE_PAGES } from '@/config/private-pages-url.config'
+import { PUBLIC_PAGES } from '@/config/public-pages-url.config'
+import UserStore from '@/stores/UserStore'
 import { Plus, Search } from 'lucide-react'
+import { observer } from 'mobx-react'
+import { useRouter } from 'next/navigation'
+import Logo from './UI/attributes/Logo'
+import { Button, ButtonVariant } from './UI/buttons/Button'
+import { Avatar } from './UI/profiles/Avatar'
 
-export default function NavBar() {
+export default observer(function NavBar() {
+	const { isUserAuth, userAuth } = UserStore
+
+	const { push } = useRouter()
 	return (
-		<header className='bg-primary px-12 flex justify-between items-center py-5'>
-			<div className='flex gap-2'>
-				<div>
-					<img
-						src='http://localhost:3000/logo.svg'
-						className='h-12 w-12'
-						alt='logo'
-					/>
-				</div>
-				<span className='text-2xl'>SnapJoy</span>
-			</div>
+		<header className='bg-primary py-5 px-12 flex justify-between items-center py-5'>
+			<Logo />
 			<div className='flex items-center gap-7'>
 				<div className='flex gap-3'>
 					<button>
 						<Search />
 					</button>
-					<button>
-						<Plus />
-					</button>
+					{isUserAuth && (
+						<button onClick={() => push(PRIVATE_PAGES.CREATE_POST)}>
+							<Plus />
+						</button>
+					)}
 				</div>
 				<div>
-					<img
-						src='http://localhost:3000/bg-picture.png'
-						className='h-16 w-16 rounded-full'
-						alt='logo'
-					/>
+					{isUserAuth ? (
+						<Avatar user={userAuth} />
+					) : (
+						<Button
+							onClick={() => push(PUBLIC_PAGES.LOGIN)}
+							styles='w-28 h-11'
+							variant={ButtonVariant.outlined}
+						>
+							Войти
+						</Button>
+					)}
 				</div>
 			</div>
 		</header>
 	)
-}
+})

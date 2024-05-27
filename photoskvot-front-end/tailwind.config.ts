@@ -3,6 +3,7 @@ import type { Config } from 'tailwindcss'
 import { COLORS } from './src/constants/color.constants'
 
 const config: Config = {
+	plugins: [require('flowbite/plugin')],
 	darkMode: 'class',
 	mode: 'jit',
 	content: [
@@ -446,6 +447,5 @@ const config: Config = {
 			},
 		},
 	},
-	plugins: [],
 }
 export default config

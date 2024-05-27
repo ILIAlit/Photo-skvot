@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsNumber, IsString } from 'class-validator'
+import { IsString } from 'class-validator'
 
 export class CreatePostSettingDto {
 	@ApiProperty({
@@ -7,7 +7,7 @@ export class CreatePostSettingDto {
 		nullable: true,
 		example: 250,
 	})
-	@IsNumber({}, { message: 'Не является числом!' })
+	@IsString({ message: 'Неверное значение!' })
 	iso: number
 
 	@ApiProperty({

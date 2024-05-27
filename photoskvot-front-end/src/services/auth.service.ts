@@ -1,6 +1,6 @@
 import { axiosClassic } from '@/api/interceptors'
 import { IAuthResponse, ILoginForm, IRegisterForm } from '@/types/auth.types'
-import { saveTokenStorage } from './auth-token.service'
+import { removeTokenStorage, saveTokenStorage } from './auth-token.service'
 
 class AuthService {
 	async login(data: ILoginForm) {
@@ -20,6 +20,10 @@ class AuthService {
 			saveTokenStorage(response.data.token)
 		}
 		return response
+	}
+
+	async logout() {
+		removeTokenStorage()
 	}
 }
 

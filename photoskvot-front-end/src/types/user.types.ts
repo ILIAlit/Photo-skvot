@@ -7,8 +7,6 @@ export enum UserRole {
 
 export interface IUser extends IBaseType {
 	name: string
-	email: string
-	password: string
-	role: UserRole
+	role: string
 	isBaned: boolean
 }

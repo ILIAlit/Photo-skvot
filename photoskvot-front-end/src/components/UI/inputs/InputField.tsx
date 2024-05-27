@@ -3,7 +3,7 @@ import { forwardRef } from 'react'
 interface InputFieldProps {
 	id: string
 	extra?: string
-	placeholder: string
+	placeholder?: string
 	state?: string
 	disabled?: boolean
 	type?: string

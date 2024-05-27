@@ -1,7 +1,8 @@
 class PRIVATE {
-	PROFILE = '/profile'
-	CREATE_POST = `/create-post`
-	EDUCATION = `/education`
+	PROFILE = '/user/profile'
+	CREATE_POST = '/post/create-post'
+	EDUCATION = '/education'
+	ADMIN = '/admin'
 }
 
 export const PRIVATE_PAGES = new PRIVATE()

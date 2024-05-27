@@ -1,3 +1,3 @@
 export interface IBaseType {
-	id: number
+	id: string
 }

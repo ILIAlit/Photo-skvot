@@ -1,9 +1,10 @@
 class PUBLIC {
-	HOME = `/`
-	POSTS = `/posts`
-	PREVIEW_POST = `/preview-post`
-	LOGIN = `/sign-in`
-	REGISTRATION = '/sign-up'
+	HOME = '/'
+	POSTS = '/post/all'
+	PREVIEW_POST = '/post/preview-post'
+	LOGIN = '/auth/login'
+	REGISTRATION = '/auth/register'
+	NOT_FOUND = '/404'
 }
 
 export const PUBLIC_PAGES = new PUBLIC()
