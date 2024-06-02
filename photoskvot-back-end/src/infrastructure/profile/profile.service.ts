@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import { Profile } from 'src/domain/models/profile/profile'
 import { IProfileRepository } from 'src/domain/repositories/profile/profileRepository.interface'
 import { CloudinaryService } from '../services/cloudinary/cloudinary.service'
+import { UsersService } from '../users/users.service'
 import { UpdateProfileDto } from './dto/update-profile.dto'
 
 @Injectable()

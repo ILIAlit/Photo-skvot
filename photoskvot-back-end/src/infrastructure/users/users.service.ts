@@ -3,6 +3,7 @@ import { User } from 'src/domain/models/user/user'
 import { IUserRepository } from 'src/domain/repositories/user/userRepository.interface'
 import { ProfileService } from '../profile/profile.service'
 import { CreateUserDto } from './dto/create-user.dto'
+import { ResUserData } from './dto/res-user-data.dto'
 
 @Injectable()
 export class UsersService {
@@ -13,6 +14,16 @@ export class UsersService {
 
 	async getUsers(): Promise<User[]> {
 		return await this.userRepository.getUsers()
+	}
+
+	async getUserData(userId: number): Promise<ResUserData> {
+		const user = await this.getUserById(userId)
+		const userProfile = this.profileService.getProfile(userId)
+		return {
+			id: user.id,
+			profile: userProfile,
+			name: user.name,
+		}
 	}
 
 	async createUser(userDto: CreateUserDto): Promise<User> {
@@ -27,6 +38,10 @@ export class UsersService {
 
 	async getUserByName(name: string): Promise<User> {
 		return await this.userRepository.getUserByName(name)
+	}
+
+	async getUserById(id: number): Promise<User> {
+		return await this.userRepository.getUserById(id)
 	}
 
 	async banUser(userId): Promise<User> {

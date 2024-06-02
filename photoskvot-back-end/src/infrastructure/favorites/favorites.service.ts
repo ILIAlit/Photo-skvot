@@ -22,6 +22,10 @@ export class FavoritesService {
 		}
 	}
 
+	async checkIsFavorite(userId: number, postId: number) {
+		return await this.favoriteRepository.isFavorite(userId, postId)
+	}
+
 	async getUserFavorite(userId: number) {
 		return await this.favoriteRepository.getUserFavorite(userId)
 	}

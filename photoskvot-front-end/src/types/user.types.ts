@@ -1,3 +1,4 @@
+import { IProfile } from './profile.types'
 import { IBaseType } from './root.types'
 
 export enum UserRole {
@@ -9,4 +10,9 @@ export interface IUser extends IBaseType {
 	name: string
 	role: string
 	isBaned: boolean
+}
+
+export interface IResUserData extends IBaseType {
+	name: string
+	profile: IProfile
 }

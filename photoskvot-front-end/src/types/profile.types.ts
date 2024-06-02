@@ -8,7 +8,7 @@ export interface IProfile extends IBaseType {
 }
 
 export interface IProfileForm {
-	avatar: File
+	avatar: File[]
 	status: string
 	about: string
 	social_link: string

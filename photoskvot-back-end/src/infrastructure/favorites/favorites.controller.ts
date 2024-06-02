@@ -9,6 +9,7 @@ import {
 	UseGuards,
 } from '@nestjs/common'
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { Favorite } from 'src/domain/models/favorite/favorite'
 import { IGetUserAuthInfoRequest } from '../../domain/adapters/user/iGetUserAuthInfoRequest.interface'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { ResponseExceptionDto } from '../exceptions/dto/response-exception'
@@ -50,6 +51,21 @@ export class FavoritesController {
 		const user = await request.user
 		const userId = user.id
 		return this.favoritesService.getUserFavorite(userId)
+	}
+
+	@ApiOperation({ summary: 'Check is favorite' })
+	@ApiResponse({ status: 200, type: ResGetFavoriteDto })
+	@ApiResponse({ status: 401, type: ResponseExceptionDto })
+	@ApiQuery({ name: 'postId' })
+	@UseGuards(JwtAuthGuard)
+	@Get('check')
+	async checkIsFavorite(
+		@Req() request: IGetUserAuthInfoRequest,
+		@Query() { postId }: ReqQueryDto
+	): Promise<Favorite> {
+		const user = await request.user
+		const userId = user.id
+		return this.favoritesService.checkIsFavorite(userId, postId)
 	}
 
 	@ApiOperation({ summary: 'Delete favorite' })

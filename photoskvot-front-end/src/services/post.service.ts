@@ -1,4 +1,4 @@
-import { axiosWithAuth } from '@/api/interceptors'
+import { axiosClassic, axiosWithAuth } from '@/api/interceptors'
 import { ICreatePostResponse } from '../types/post.types'
 
 class PostService {
@@ -7,6 +7,13 @@ class PostService {
 			'posts',
 			data
 		)
+		return response
+	}
+
+	async getPosts(limit: number, page: number) {
+		const response = await axiosClassic.get('posts', {
+			params: { limit: limit, offset: page },
+		})
 		return response
 	}
 }

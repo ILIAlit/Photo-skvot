@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common'
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { IGetUserAuthInfoRequest } from 'src/domain/adapters/user/IGetUserAuthInfoRequest.interface'
+import { Like } from 'src/domain/models/like/like'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { ResponseExceptionDto } from '../exceptions/dto/response-exception'
 import { CreateLikeDto } from './dto/create-like.dto'
@@ -50,6 +51,21 @@ export class LikesController {
 		const user = await request.user
 		const userId = user.id
 		return this.likesService.getUserLike(userId)
+	}
+
+	@ApiOperation({ summary: 'Check is like' })
+	@ApiResponse({ status: 200, type: ResGetLikeDto })
+	@ApiResponse({ status: 401, type: ResponseExceptionDto })
+	@ApiQuery({ name: 'postId' })
+	@UseGuards(JwtAuthGuard)
+	@Get('check')
+	async checkIsLike(
+		@Req() request: IGetUserAuthInfoRequest,
+		@Query() { postId }: ReqQueryDto
+	): Promise<Like> {
+		const user = await request.user
+		const userId = user.id
+		return this.likesService.checkIsLike(userId, postId)
 	}
 
 	@ApiOperation({ summary: 'Delete like' })

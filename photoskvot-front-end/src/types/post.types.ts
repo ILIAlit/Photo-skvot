@@ -6,6 +6,7 @@ import { IUser } from './user.types'
 export interface IPost extends IBaseType {
 	title: string
 	description: string
+	user_id: number
 }
 
 export interface IPostForm {

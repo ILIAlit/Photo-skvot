@@ -6,5 +6,6 @@ export interface IUserRepository {
 	createUser(userDto: CreateUserDto, profileId: number): Promise<User>
 	getUserByEmail(email: string): Promise<User>
 	getUserByName(name: string): Promise<User>
+	getUserById(id: number): Promise<User>
 	banUser(userId: number): Promise<User>
 }

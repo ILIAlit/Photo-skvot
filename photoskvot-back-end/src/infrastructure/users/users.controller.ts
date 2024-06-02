@@ -6,6 +6,7 @@ import { RoleGuard } from '../auth/guards/roles.guard'
 import { ResponseExceptionDto } from '../exceptions/dto/response-exception'
 import { BanUserParams } from './dto/ban-user-params.dto'
 import { UsersService } from './users.service'
+import { ResUserData } from './dto/res-user-data.dto'
 
 @ApiTags('User')
 @Controller('users')
@@ -23,6 +24,15 @@ export class UsersController {
 	@Get()
 	async findAll(): Promise<User[]> {
 		return await this.usersService.getUsers()
+	}
+
+	@ApiOperation({ summary: 'Get user data' })
+	@ApiResponse({ status: 200, type: ResUserData })
+	@ApiResponse({ status: 400, type: ResponseExceptionDto })
+	@ApiQuery({ name: 'userId' })
+	@Get('get-user-data')
+	async getUserData(@Query() { userId }): Promise<ResUserData> {
+		return await this.usersService.getUserData(userId)
 	}
 
 	@ApiOperation({ summary: 'Ban user' })

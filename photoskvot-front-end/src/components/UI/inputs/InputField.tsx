@@ -7,8 +7,10 @@ interface InputFieldProps {
 	state?: string
 	disabled?: boolean
 	type?: string
-	onChange?: any
+	onChange?: (event: any) => void
 	styles?: string
+	value?: string
+	hidden?: boolean
 }
 
 export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
@@ -22,6 +24,8 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 			type,
 			onChange,
 			styles,
+			value,
+			hidden,
 			...rest
 		},
 		ref
@@ -29,6 +33,8 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 		return (
 			<div className={`${extra}`}>
 				<input
+					hidden={hidden}
+					value={value}
 					ref={ref}
 					onChange={onChange}
 					disabled={disabled}

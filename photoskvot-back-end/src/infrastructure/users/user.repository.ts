@@ -28,6 +28,10 @@ export class UserRepository implements IUserRepository {
 		})
 	}
 
+	async getUserById(id: number): Promise<User> {
+		return await this.user.findByPk(id)
+	}
+
 	async banUser(userId): Promise<User> {
 		const user = await this.user.findByPk(userId)
 		return await user.update({
