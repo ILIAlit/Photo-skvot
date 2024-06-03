@@ -1,7 +1,7 @@
 'use client'
 
-import { Pin } from 'lucide-react'
 import { LikeButton } from '../buttons/LIkeButton'
+import { SaveButton } from '../buttons/SaveButton'
 import { CardAuthor } from './CardAuthor'
 import { CardImage } from './CardImage'
 
@@ -18,7 +18,7 @@ export const Card = ({ postId, userId }: CardProps) => {
 				<CardAuthor userId={userId} />
 				<div className='flex gap-4'>
 					<LikeButton postId={postId} />
-					<Pin className='text-primary' />
+					<SaveButton postId={postId} />
 				</div>
 			</div>
 		</div>

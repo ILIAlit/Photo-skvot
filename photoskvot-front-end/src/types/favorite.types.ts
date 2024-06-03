@@ -5,7 +5,7 @@ export interface IFavoriteForm {
 	postId: number
 }
 
-export interface ICreateFavoriteResponse {
+export interface IFavoriteResponse {
 	isFavorite: boolean
 }
 
