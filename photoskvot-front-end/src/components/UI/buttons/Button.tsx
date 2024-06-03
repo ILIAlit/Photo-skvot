@@ -1,3 +1,5 @@
+'use client'
+
 import { Loader } from '../Loader'
 
 export enum ButtonVariant {

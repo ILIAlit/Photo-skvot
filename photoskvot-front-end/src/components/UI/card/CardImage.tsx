@@ -12,7 +12,7 @@ export const CardImage = ({ postId }: CardImageProps) => {
 		<img
 			src={photoData?.src}
 			alt={photoData?.alt}
-			className='w-full h-48 object-cover rounded-lg transition-transform transform scale-100 hover:opacity-70'
+			className='cursor-pointer w-full h-48 object-cover rounded-lg transition-transform transform scale-100 hover:opacity-70'
 		/>
 	)
 }

@@ -5,7 +5,7 @@ export interface ILikeForm {
 	postId: number
 }
 
-export interface ICreateLikeResponse {
+export interface ILikeResponse {
 	isLiked: boolean
 }
 

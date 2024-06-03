@@ -13,7 +13,7 @@ export const Avatar = ({ styles, avatarSrc, userName }: AvatarProps) => {
 	}
 
 	return (
-		<div className='group'>
+		<div className='group cursor-pointer'>
 			<div
 				className={
 					'bg-lightPrimary h-16 w-16 rounded-full flex items-center justify-center hover:opacity-80 focus:outline-none ' +

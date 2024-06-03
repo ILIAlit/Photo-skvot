@@ -1,6 +1,7 @@
 'use client'
 
-import { Pin, ThumbsUp } from 'lucide-react'
+import { Pin } from 'lucide-react'
+import { LikeButton } from '../buttons/LIkeButton'
 import { CardAuthor } from './CardAuthor'
 import { CardImage } from './CardImage'
 
@@ -11,12 +12,12 @@ interface CardProps {
 
 export const Card = ({ postId, userId }: CardProps) => {
 	return (
-		<div className='group cursor-pointer flex flex-col gap-2'>
+		<div className='group flex flex-col gap-2'>
 			<CardImage postId={postId} />
 			<div className='flex justify-between'>
 				<CardAuthor userId={userId} />
 				<div className='flex gap-4'>
-					<ThumbsUp className='text-primary' />
+					<LikeButton postId={postId} />
 					<Pin className='text-primary' />
 				</div>
 			</div>

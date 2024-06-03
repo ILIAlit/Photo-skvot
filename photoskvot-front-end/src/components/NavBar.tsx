@@ -33,7 +33,7 @@ export default observer(function NavBar() {
 						</button>
 					)}
 				</div>
-				<div>
+				<div className='z-10'>
 					{isUserAuth ? (
 						<div>
 							<a onClick={() => setHandleAvatarMenuOpen(!handleAvatarMenuOpen)}>
@@ -71,8 +71,8 @@ export default observer(function NavBar() {
 					) : (
 						<Button
 							onClick={() => push(PUBLIC_PAGES.LOGIN)}
-							styles='w-28 h-11'
 							variant={ButtonVariant.outlined}
+							styles='min-w-28 h-11'
 						>
 							Войти
 						</Button>
