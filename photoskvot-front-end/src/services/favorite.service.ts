@@ -33,6 +33,12 @@ class FavoriteService {
 		const favorite: IGetFavoriteResponse = data
 		return favorite
 	}
+
+	async getUserFavorite() {
+		const { data } = await axiosWithAuth.get('favorites')
+		const favorites: IGetFavoriteResponse[] = data
+		return favorites
+	}
 }
 
 export const favoriteService = new FavoriteService()

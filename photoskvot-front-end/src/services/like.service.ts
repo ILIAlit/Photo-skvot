@@ -26,6 +26,12 @@ class LikeService {
 		const like: IGetLikeResponse = data
 		return like
 	}
+
+	async getUserLike() {
+		const { data } = await axiosWithAuth.get('likes')
+		const likes: IGetLikeResponse[] = data
+		return likes
+	}
 }
 
 export const likeService = new LikeService()

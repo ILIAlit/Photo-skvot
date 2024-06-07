@@ -105,6 +105,7 @@ export const ProfileForm = ({ styles, setEditing }: TabProps) => {
 						<div className='w-full  mb-4 lg:mt-6'>
 							<InputField
 								type='text'
+								placeholder='Статус'
 								{...register('status')}
 								value={status}
 								onChange={event => {
@@ -117,6 +118,7 @@ export const ProfileForm = ({ styles, setEditing }: TabProps) => {
 					<div className='w-full  mb-4 mt-6'>
 						<InputField
 							type='text'
+							placeholder='Ссылка на на автора'
 							{...register('social_link')}
 							value={profileData?.social_link}
 							id='social_link'

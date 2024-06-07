@@ -1,5 +1,4 @@
-import { axiosClassic, axiosWithAuth } from '@/api/interceptors'
-import { ICreatePostResponse } from '../types/post.types'
+import { axiosClassic } from '@/api/interceptors'
 
 class PhotoService {
 	async getPostPhoto(postId: number) {

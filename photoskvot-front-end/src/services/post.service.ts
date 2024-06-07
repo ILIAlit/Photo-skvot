@@ -16,6 +16,13 @@ class PostService {
 		})
 		return response
 	}
+
+	async getOnePost(postId: number) {
+		const response = await axiosClassic.get('posts/get-one', {
+			params: { postId },
+		})
+		return response
+	}
 }
 
 export const postService = new PostService()

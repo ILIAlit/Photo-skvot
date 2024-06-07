@@ -15,7 +15,7 @@ export class PhotoRepository implements IPhotoRepository {
 	}
 	async getOnePhoto(postId: number): Promise<Photo> {
 		return await this.photo.findOne<PhotoEntity>({
-			where: { id: postId },
+			where: { post_id: postId },
 		})
 	}
 	async createPhoto(
@@ -34,7 +34,7 @@ export class PhotoRepository implements IPhotoRepository {
 	): Promise<Photo> {
 		const [updateRow, updateData] = await this.photo.update<PhotoEntity>(
 			{ ...dto, src: imageSrc },
-			{ where: { id: postId }, returning: true }
+			{ where: { post_id: postId }, returning: true }
 		)
 		return updateData[0]
 	}

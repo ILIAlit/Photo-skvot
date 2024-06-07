@@ -14,7 +14,7 @@ interface ButtonProps {
 	loading?: boolean
 	styles?: string
 	isLoad?: boolean
-	onClick?: () => void
+	onClick?: (event: any) => void
 }
 
 export function Button({

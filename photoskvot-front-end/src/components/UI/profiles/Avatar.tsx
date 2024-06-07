@@ -16,14 +16,14 @@ export const Avatar = ({ styles, avatarSrc, userName }: AvatarProps) => {
 		<div className='group cursor-pointer'>
 			<div
 				className={
-					'bg-lightPrimary h-16 w-16 rounded-full flex items-center justify-center hover:opacity-80 focus:outline-none ' +
+					'bg-lightPrimary h-16 w-16 rounded-full hover:opacity-80 focus:outline-none ' +
 					styles
 				}
 			>
 				{avatarSrc ? (
 					<img
 						src={avatarSrc}
-						className={'h-16 w-16 rounded-full '}
+						className={'object-cover w-full h-full rounded-full'}
 						alt='logo'
 					/>
 				) : (

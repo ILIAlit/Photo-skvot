@@ -2,6 +2,8 @@
 
 import { Button, ButtonVariant } from '@/components/UI/buttons/Button'
 import { InputField } from '@/components/UI/inputs/InputField'
+import { SettingInputs } from '@/components/UI/inputs/SettingInputs'
+import { Switcher } from '@/components/UI/inputs/Switcher/Switcher'
 import { PUBLIC_PAGES } from '@/config/public-pages-url.config'
 import { IPostForm } from '@/types/post.types'
 import { useMutation } from '@tanstack/react-query'
@@ -13,12 +15,21 @@ import { postService } from '../../../../services/post.service'
 
 export default function CreatePost() {
 	const [loading, setLoading] = useState(false)
+	const [fileSrc, setFileSrc] = useState<string>()
+	const [settingOpen, setSettingOpen] = useState(false)
 
 	const { register, handleSubmit, reset } = useForm<IPostForm>({
 		mode: 'onChange',
 	})
 
 	const { push } = useRouter()
+
+	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const file = event.target?.files?.[0]
+		if (file) {
+			setFileSrc(URL.createObjectURL(file))
+		}
+	}
 
 	const { mutate } = useMutation({
 		mutationKey: ['create-post'],
@@ -55,7 +66,7 @@ export default function CreatePost() {
 	return (
 		<div className='text-primary'>
 			<div className='text-center flex justify-center'>
-				<span className='text-primary mt-20 text-1.5xl font-semibold max-w-96'>
+				<span className='text-primary text-1.5xl font-semibold max-w-96'>
 					Lorem Ipsum is simply dummy text of the printing and typesetting
 					industry. 
 				</span>
@@ -69,6 +80,7 @@ export default function CreatePost() {
 						id='image'
 						type='file'
 						{...register('image')}
+						onChange={(event: any) => handleFileChange(event)}
 						styles='absolute inset-0 w-full h-full opacity-0 z-50'
 					/>
 					<div className='flex flex-col gap-2 items-center'>
@@ -84,12 +96,6 @@ export default function CreatePost() {
 								<span className='text-primary'> or browse </span>
 								<span>to upload</span>
 							</div>
-							<input
-								id='file-upload'
-								name='file-upload'
-								type='file'
-								className='sr-only'
-							/>
 							<Button variant={ButtonVariant.contained} styles='max-w-56'>
 								Выбрать файл
 							</Button>
@@ -98,8 +104,9 @@ export default function CreatePost() {
 							PNG, JPG, GIF up to 10MB
 						</p>
 					</div>
-
-					<img src='' className='mt-4 mx-auto max-h-40 hidden' id='preview' />
+					<div className='flex flex-col items-center'>
+						<img src={fileSrc} className='mt-4 mx-auto max-h-40' id='preview' />
+					</div>
 				</div>
 				<div className='flex flex-col gap-2'>
 					<InputField
@@ -114,32 +121,11 @@ export default function CreatePost() {
 						type='text'
 						{...register('description')}
 					/>
-					<div className='p-4 flex flex-col gap-2'>
-						<InputField
-							id='shutter_speed'
-							placeholder='Выдержка'
-							type='text'
-							{...register('settings.shutter_speed')}
-						/>
-						<InputField
-							id='aperture'
-							placeholder='Диафрагма'
-							type='text'
-							{...register('settings.aperture')}
-						/>
-						<InputField
-							id='ISO'
-							placeholder='ISO'
-							type='text'
-							{...register('settings.iso')}
-						/>
-						<InputField
-							id='instrument'
-							placeholder='Инструмент'
-							type='text'
-							{...register('settings.instrument')}
-						/>
-					</div>
+					<Switcher
+						onChange={() => setSettingOpen(!settingOpen)}
+						text='Выставить настройки'
+					/>
+					{settingOpen && <SettingInputs register={register} />}
 					<div>
 						<InputField
 							id='tags'

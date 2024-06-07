@@ -18,7 +18,7 @@ export class UsersService {
 
 	async getUserData(userId: number): Promise<ResUserData> {
 		const user = await this.getUserById(userId)
-		const userProfile = this.profileService.getProfile(userId)
+		const userProfile = await this.profileService.getProfile(userId)
 		return {
 			id: user.id,
 			profile: userProfile,

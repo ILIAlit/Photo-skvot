@@ -1,5 +1,7 @@
 'use client'
 
+import { FavoriteList } from '@/components/favorite/FavoriteList'
+import { LikeList } from '@/components/like/LikeList'
 import { ProfilePreview } from '../profiles/ProfilePreview'
 
 export enum TabPanelsType {
@@ -24,6 +26,14 @@ export const TabPanel = ({ styles, type }: TabProps) => {
 		{
 			type: TabPanelsType.profile,
 			component: <ProfilePreview />,
+		},
+		{
+			type: TabPanelsType.likes,
+			component: <LikeList />,
+		},
+		{
+			type: TabPanelsType.favorites,
+			component: <FavoriteList />,
 		},
 	]
 

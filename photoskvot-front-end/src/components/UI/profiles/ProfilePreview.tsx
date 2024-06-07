@@ -27,7 +27,7 @@ export const ProfilePreview = ({ styles }: ProfilePreviewProps) => {
 					userName={user?.name}
 					avatarSrc={profileData?.avatar}
 				/>
-				<div className='text-lg'>
+				<div className='text-lg flex flex-col gap-2'>
 					<a
 						href='#'
 						className='font-medium leading-none text-gray-900 hover:text-indigo-600 transition duration-500 ease-in-out'
