@@ -31,7 +31,7 @@ export default function PostPreview({ postId }: ShowUserDataProps) {
 				</div>
 			</div>
 			<TagList postId={postId} />
-			<CommentList />
+			<CommentList postId={postId} />
 		</div>
 	)
 }

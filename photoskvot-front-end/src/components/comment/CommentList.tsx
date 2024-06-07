@@ -1,62 +1,72 @@
 'use client'
 
+import { useGetPostComment } from '@/hooks/post/useGetPostComment'
+import { commentService } from '@/services/comment.service'
+import { ICommentForm } from '@/types/comment.types'
+import { useMutation } from '@tanstack/react-query'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { Button, ButtonVariant } from '../UI/buttons/Button'
+import { TextArea } from '../UI/inputs/TextArea'
+import { CommentItem } from './CommentItem'
 
-interface CommentListProps {}
+interface CommentListProps {
+	postId: number
+}
 
-export const CommentList = ({}: CommentListProps) => {
-	//const { data: postsData, isLoading } = useGetUserFavorite()
+export const CommentList = ({ postId }: CommentListProps) => {
+	const { commentData, isLoading } = useGetPostComment(postId)
+
+	const { register, handleSubmit, reset } = useForm<ICommentForm>({
+		mode: 'onChange',
+	})
+
+	const { mutate } = useMutation({
+		mutationKey: ['create-comment'],
+		mutationFn: (data: ICommentForm) => commentService.create(data),
+		onSuccess: () => {
+			toast.success('Успешное создание комментария')
+			reset()
+		},
+		onError: (err: any) => {
+			toast.error(err.response.data.message)
+		},
+	})
+
+	const onSubmit: SubmitHandler<ICommentForm> = (data: ICommentForm) => {
+		data.postId = postId
+		mutate(data)
+	}
 
 	return (
 		<div className='w-full bg-white rounded-lg border p-2 my-4 mx-6'>
 			<h3 className='font-bold'>Discussion</h3>
 
 			<form>
-				<div className='flex flex-col'>
-					<div className='border rounded-md p-3 ml-3 my-3'>
-						<div className='flex gap-3 items-center'>
-							<img
-								src='https://avatars.githubusercontent.com/u/22263436?v=4'
-								className='object-cover w-8 h-8 rounded-full 
-                            border-2 border-emerald-400  shadow-emerald-400
-                            '
-							/>
-
-							<h3 className='font-bold'>User name</h3>
-						</div>
-
-						<p className='text-gray-600 mt-2'>this is sample commnent</p>
-					</div>
-
-					<div className='border rounded-md p-3 ml-3 my-3'>
-						<div className='flex gap-3 items-center'>
-							<img
-								src='https://avatars.githubusercontent.com/u/22263436?v=4'
-								className='object-cover w-8 h-8 rounded-full 
-                            border-2 border-emerald-400  shadow-emerald-400
-                            '
-							/>
-
-							<h3 className='font-bold'>User name</h3>
-						</div>
-
-						<p className='text-gray-600 mt-2'>this is sample commnent</p>
-					</div>
-				</div>
-
 				<div className='w-full px-3 my-2'>
-					<textarea
-						className='bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white'
-						name='body'
-						placeholder='Type Your Comment'
-						required
-					></textarea>
+					<TextArea id='comment' {...register('text')} />
 				</div>
 
 				<div className='w-full flex justify-end px-3'>
-					<Button styles='max-w-32' variant={ButtonVariant.contained}>
+					<Button
+						onClick={handleSubmit(onSubmit)}
+						styles='max-w-32'
+						variant={ButtonVariant.contained}
+					>
 						Отправить
 					</Button>
+				</div>
+				<div className='flex flex-col'>
+					{commentData &&
+						commentData.map(comment => {
+							return (
+								<CommentItem
+									key={comment.id}
+									text={comment.text}
+									userId={comment.user_id}
+								/>
+							)
+						})}
 				</div>
 			</form>
 		</div>
