@@ -1,6 +1,7 @@
 'use client'
 
 import { Loader } from '../Loader'
+import { likeProviders } from './../../../../../photoskvot-back-end/src/infrastructure/likes/likes.providers'
 
 export enum ButtonVariant {
 	contained = 'contained',
@@ -22,18 +23,20 @@ export function Button({
 	variant,
 	styles,
 	isLoad,
+	disabled,
 	onClick,
 }: ButtonProps) {
 	return (
 		<button
-			disabled={isLoad}
+			disabled={isLoad || disabled}
 			onClick={onClick}
 			className={
 				(variant === ButtonVariant.contained
 					? 'bg-primary  text-white  hover:bg-light'
 					: 'bg-white text-primary border border-primary hover:border-light hover:text-light') +
 				' tracking-wide font-semibold w-full py-4 rounded-lg transition-all duration-700 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none ' +
-				styles
+				styles +
+				(disabled && 'opacity-30')
 			}
 		>
 			<div className='flex gap-2'>

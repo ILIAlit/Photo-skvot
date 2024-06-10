@@ -4,6 +4,7 @@ import { PRIVATE_PAGES } from '@/config/private-pages-url.config'
 import { PUBLIC_PAGES } from '@/config/public-pages-url.config'
 import { useProfile } from '@/hooks/useProfile'
 import UserStore from '@/stores/UserStore'
+import { UserRole } from '@/types/user.types'
 import { Plus, Search } from 'lucide-react'
 import { observer } from 'mobx-react'
 import { useRouter } from 'next/navigation'
@@ -45,6 +46,14 @@ export default observer(function NavBar() {
 							{handleAvatarMenuOpen && (
 								<div className='absolute right-10 w-40 mt-1 origin-top-left bg-white divide-y divide-gray-100 rounded-md shadow-lg transition duration-300'>
 									<div className='py-1'>
+										{userAuth?.role === UserRole.Admin && (
+											<a
+												href={PRIVATE_PAGES.ADMIN}
+												className='block px-4 py-2 text-sm text-primary hover:bg-gray-100'
+											>
+												Управление
+											</a>
+										)}
 										<a
 											href={PRIVATE_PAGES.PROFILE}
 											className='block px-4 py-2 text-sm text-primary hover:bg-gray-100'

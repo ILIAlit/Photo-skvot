@@ -1,5 +1,6 @@
 'use client'
 
+import { useConnectSocket } from '@/hooks/sockets/useConnectSocket'
 import { decodeToken, getToken } from '@/services/auth-token.service'
 import UserStore from '@/stores/UserStore'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -14,6 +15,8 @@ export function Providers({ children }: PropsWithChildren) {
 			UserStore.setIsUserAuth(true)
 		}
 	}, [])
+
+	useConnectSocket()
 
 	const [client] = useState(
 		new QueryClient({

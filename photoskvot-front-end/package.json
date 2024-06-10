@@ -24,6 +24,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.51.4",
     "sass": "^1.77.1",
+    "socket.io-client": "^4.7.5",
     "sonner": "^1.4.41",
     "tailwind-variants": "^0.2.1"
   },

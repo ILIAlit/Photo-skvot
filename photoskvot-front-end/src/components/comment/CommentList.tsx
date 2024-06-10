@@ -35,6 +35,7 @@ export const CommentList = ({ postId }: CommentListProps) => {
 
 	const onSubmit: SubmitHandler<ICommentForm> = (data: ICommentForm) => {
 		data.postId = postId
+		//SocketApi.socket?.emit('server-create-comment', data)
 		mutate(data)
 	}
 

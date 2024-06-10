@@ -1,5 +1,5 @@
-import { axiosClassic } from '@/api/interceptors'
-import { IResUserData } from '@/types/user.types'
+import { axiosClassic, axiosWithAuth } from '@/api/interceptors'
+import { IResUserData, IUser } from '@/types/user.types'
 
 class UserService {
 	async getUserData(userId: number) {
@@ -7,6 +7,11 @@ class UserService {
 			'users/get-user-data',
 			{ params: { userId } }
 		)
+		return response
+	}
+
+	async getAllUser() {
+		const response = await axiosWithAuth.get<IUser[]>('users')
 		return response
 	}
 }
