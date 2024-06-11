@@ -2,11 +2,12 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common'
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { User } from 'src/domain/models/user/user'
 import { Roles } from '../auth/decorators/roles-auth.decorator'
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { RoleGuard } from '../auth/guards/roles.guard'
 import { ResponseExceptionDto } from '../exceptions/dto/response-exception'
 import { BanUserParams } from './dto/ban-user-params.dto'
-import { UsersService } from './users.service'
 import { ResUserData } from './dto/res-user-data.dto'
+import { UsersService } from './users.service'
 
 @ApiTags('User')
 @Controller('users')
@@ -19,6 +20,7 @@ export class UsersController {
 		status: 200,
 		type: [User],
 	})
+	@UseGuards(JwtAuthGuard)
 	@Roles('admin')
 	@UseGuards(RoleGuard)
 	@Get()
@@ -41,6 +43,7 @@ export class UsersController {
 	@ApiResponse({ status: 403, type: ResponseExceptionDto })
 	@ApiResponse({ status: 401, type: ResponseExceptionDto })
 	@ApiQuery({ name: 'id', description: 'user id' })
+	@UseGuards(JwtAuthGuard)
 	@Roles('admin')
 	@UseGuards(RoleGuard)
 	@Get('ban-user')

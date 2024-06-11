@@ -7,6 +7,7 @@ interface UserTableRowProps {
 	email: string
 	name: string
 	isBane: boolean
+	onClick?: (event: any) => void
 }
 
 export const UserTableRow = ({
@@ -14,6 +15,7 @@ export const UserTableRow = ({
 	email,
 	name,
 	isBane,
+	onClick,
 }: UserTableRowProps) => {
 	return (
 		<tr>
@@ -24,6 +26,7 @@ export const UserTableRow = ({
 			</td>
 			<td className='py-4 px-6 border-b border-gray-200'>
 				<Button
+					onClick={onClick}
 					styles='max-w-32 max-h-9 '
 					disabled={isBane ? true : false}
 					variant={ButtonVariant.outlined}
