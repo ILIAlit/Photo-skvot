@@ -6,6 +6,7 @@ import { PUBLIC_PAGES } from '@/config/public-pages-url.config'
 import UserStore from '@/stores/UserStore'
 import { ILoginForm } from '@/types/auth.types'
 import { useMutation } from '@tanstack/react-query'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -68,12 +69,12 @@ export default function Login() {
 									<AuthButton>Вход</AuthButton>
 								</form>
 								<div className='my-12 border-b text-center'>
-									<a
-										href='#'
+									<Link
+										href={PUBLIC_PAGES.REGISTRATION}
 										className='leading-none px-2 inline-block text-sm text-secondary tracking-wide font-medium bg-white transform translate-y-1/2'
 									>
 										Регистрация
-									</a>
+									</Link>
 								</div>
 							</div>
 						</div>

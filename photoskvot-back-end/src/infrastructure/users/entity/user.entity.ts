@@ -1,4 +1,5 @@
 import {
+	BelongsToMany,
 	Column,
 	DataType,
 	HasMany,
@@ -9,6 +10,8 @@ import {
 import { IUserCreateAttr } from 'src/domain/adapters/entity/user/user-create-attr.interface'
 import { User, UserRole } from 'src/domain/models/user/user'
 import { CommentEntity } from 'src/infrastructure/comments/entities/comment.entity'
+import { CourseEntity } from 'src/infrastructure/education/entities/course.entity'
+import { UserCourseEntity } from 'src/infrastructure/education/entities/user-course.entity'
 import { FavoriteEntity } from 'src/infrastructure/favorites/entities/favorite.entity'
 import { LikeEntity } from 'src/infrastructure/likes/entities/like.entity'
 import { PostEntity } from 'src/infrastructure/posts/entities/post.entity'
@@ -61,4 +64,7 @@ export class UserEntity
 
 	@HasMany(() => CommentEntity)
 	comments: CommentEntity[]
+
+	@BelongsToMany(() => CourseEntity, () => UserCourseEntity)
+	courses: CourseEntity[]
 }

@@ -2,6 +2,9 @@ import { HttpException, HttpStatus } from '@nestjs/common'
 import { Sequelize } from 'sequelize-typescript'
 import { DEVELOPMENT, PRODUCTION, SEQUELIZE } from '../../domain/constants'
 import { CommentEntity } from '../comments/entities/comment.entity'
+import { CourseEntity } from '../education/entities/course.entity'
+import { LessonEntity } from '../education/entities/lesson.entity'
+import { UserCourseEntity } from '../education/entities/user-course.entity'
 import { FavoriteEntity } from '../favorites/entities/favorite.entity'
 import { LikeEntity } from '../likes/entities/like.entity'
 import { PhotoEntity } from '../photos/entities/photo.entity'
@@ -41,6 +44,9 @@ export const databaseProvider = [
 					LikeEntity,
 					FavoriteEntity,
 					CommentEntity,
+					LessonEntity,
+					CourseEntity,
+					UserCourseEntity,
 				])
 				await sequelize.sync()
 				return sequelize

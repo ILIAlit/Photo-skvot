@@ -32,6 +32,10 @@ export class UserRepository implements IUserRepository {
 		return await this.user.findByPk(id)
 	}
 
+	async getUserEntityById(id: number): Promise<UserEntity> {
+		return await this.user.findByPk(id)
+	}
+
 	async banUser(userId): Promise<User> {
 		const user = await this.user.findByPk(userId)
 		return await user.update({

@@ -125,7 +125,10 @@ export default function CreatePost() {
 						onChange={() => setSettingOpen(!settingOpen)}
 						text='Выставить настройки'
 					/>
-					{settingOpen && <SettingInputs register={register} />}
+					<SettingInputs
+						style={settingOpen ? '' : 'hidden'}
+						register={register}
+					/>
 					<div>
 						<InputField
 							id='tags'

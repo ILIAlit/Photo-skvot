@@ -1,5 +1,6 @@
 'use client'
 
+import { CoursesList } from '@/components/education/CoursesTableList'
 import { FavoriteList } from '@/components/favorite/FavoriteList'
 import { LikeList } from '@/components/like/LikeList'
 import { UserList } from '../UserList'
@@ -35,6 +36,10 @@ export const DashboardPanel = ({ styles, type }: DashboardProps) => {
 		{
 			type: DashboardPanelsType.posts,
 			component: <FavoriteList />,
+		},
+		{
+			type: DashboardPanelsType.courses,
+			component: <CoursesList />,
 		},
 	]
 

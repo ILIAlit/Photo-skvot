@@ -4,11 +4,12 @@ import { InputField } from './InputField'
 
 interface SettingInputsFieldProps {
 	register: UseFormRegister<IPostForm>
+	style?: string
 }
 
-export const SettingInputs = ({ register }: SettingInputsFieldProps) => {
+export const SettingInputs = ({ register, style }: SettingInputsFieldProps) => {
 	return (
-		<div className='p-4 flex flex-col gap-2'>
+		<div className={'p-4 flex flex-col gap-2 ' + style}>
 			<InputField
 				styles='py-1'
 				id='shutter_speed'
