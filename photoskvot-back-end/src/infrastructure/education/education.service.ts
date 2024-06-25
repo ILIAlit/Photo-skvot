@@ -68,6 +68,13 @@ export class EducationService {
 	async startCourse(userId: number, courseId: number) {
 		const user = await this.userService.getUserEntityById(userId)
 		const userCourses = await this.findUserCourses(user.id)
+		const userStartedCourse = await this.educationRepository.checkIsUserCourse(
+			user.id,
+			courseId
+		)
+		if (userStartedCourse) {
+			throw new HttpException('У вас уже есть этот курс!', HttpStatus.FORBIDDEN)
+		}
 		if (!userCourses.length) {
 			await user.$set('courses', [courseId])
 			return userCourses

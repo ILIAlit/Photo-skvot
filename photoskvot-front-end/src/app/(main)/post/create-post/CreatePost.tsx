@@ -33,11 +33,14 @@ export default function CreatePost() {
 
 	const { mutate } = useMutation({
 		mutationKey: ['create-post'],
-		mutationFn: (data: FormData) => postService.create(data),
+		mutationFn: (data: FormData) => {
+			const response = postService.create(data)
+
+			return response
+		},
 		onSuccess: () => {
 			toast.success('Успешное создание поста')
 			reset()
-			setLoading(false)
 		},
 		onError: (err: any) => {
 			toast.error(err.response.data.message)
@@ -58,7 +61,6 @@ export default function CreatePost() {
 	}
 
 	const onSubmit: SubmitHandler<IPostForm> = (data: IPostForm) => {
-		setLoading(true)
 		const transformedData = transformRequestData(data)
 		mutate(transformedData)
 	}

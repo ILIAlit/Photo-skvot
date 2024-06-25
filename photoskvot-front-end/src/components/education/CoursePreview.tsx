@@ -1,18 +1,41 @@
 'use client'
 
+import { PRIVATE_PAGES } from '@/config/private-pages-url.config'
+import { educationService } from '@/services/education.service'
+import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 import { Button, ButtonVariant } from '../UI/buttons/Button'
 
 interface CoursePreviewProps {
 	title: string
 	description: string
 	price: number
+	courseId: number
+	isUserCourse: boolean
 }
 
 export const CoursePreview = ({
 	title,
 	description,
 	price,
+	courseId,
+	isUserCourse,
 }: CoursePreviewProps) => {
+	const { push } = useRouter()
+
+	const { mutate } = useMutation({
+		mutationKey: ['start-course'],
+		mutationFn: (courseId: number) => educationService.startCourse(courseId),
+		onSuccess: () => {
+			toast.success('Курс успешно начат🔥')
+			push(PRIVATE_PAGES.MY_COURSE_DETAIL + courseId)
+		},
+		onError: (err: any) => {
+			toast.error(err.response.data.message)
+		},
+	})
+
 	return (
 		<div className='block rounded-xl border-2 border-gray-800 p-4'>
 			<span className='inline-block rounded-lg p-3'>
@@ -50,13 +73,26 @@ export const CoursePreview = ({
 			<p className='sm:mt-1 block text-sm sm:text-base text-secondary'>
 				{description}
 			</p>
-			<Button
-				styles='max-w-32 mt-3'
-				variant={ButtonVariant.contained}
-				//onClick={() => push(PRIVATE_PAGES.MY_COURSE_DETAIL + 0)}
-			>
-				Начать
-			</Button>
+			<div className='flex items-center justify-between'>
+				{isUserCourse ? (
+					<Button
+						styles='max-w-32 mt-3'
+						variant={ButtonVariant.contained}
+						onClick={() => push(PRIVATE_PAGES.MY_COURSE_DETAIL + courseId)}
+					>
+						Продолжить
+					</Button>
+				) : (
+					<Button
+						styles='max-w-32 mt-3'
+						variant={ButtonVariant.contained}
+						onClick={() => mutate(courseId)}
+					>
+						Начать
+					</Button>
+				)}
+				<span className='text-primary text-xl'>{price}</span>
+			</div>
 		</div>
 	)
 }

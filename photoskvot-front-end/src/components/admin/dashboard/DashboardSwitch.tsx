@@ -1,22 +1,24 @@
 'use client'
 
 import { Button, ButtonVariant } from '@/components/UI/buttons/Button'
+import { PRIVATE_PAGES } from '@/config/private-pages-url.config'
 import { PUBLIC_PAGES } from '@/config/public-pages-url.config'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { DashboardPanel, DashboardPanelsType } from './DashboardPanel'
+import { DashboardPanelsType } from './DashboardPanel'
 import { DashboardTab } from './DashBoardTab'
 
 interface DashboardSwitchProps {
 	styles?: string
+	children: any
 }
 
 type TabObject = {
 	title: string
-	type: DashboardPanelsType
+	link: string
 }
 
-export const DashboardSwitch = ({ styles }: DashboardSwitchProps) => {
+export const DashboardSwitch = ({ styles, children }: DashboardSwitchProps) => {
 	const { push } = useRouter()
 
 	const [tabPanel, setTabPanel] = useState<DashboardPanelsType>(
@@ -26,23 +28,23 @@ export const DashboardSwitch = ({ styles }: DashboardSwitchProps) => {
 	const tabs: TabObject[] = [
 		{
 			title: 'Пользователи',
-			type: DashboardPanelsType.users,
+			link: PRIVATE_PAGES.USER_LIST,
 		},
 		{
 			title: 'Создать админа',
-			type: DashboardPanelsType.createAdmin,
+			link: PRIVATE_PAGES.ADMIN,
 		},
 		{
 			title: 'Курсы',
-			type: DashboardPanelsType.courses,
+			link: PRIVATE_PAGES.COURSE_LIST,
 		},
 		{
 			title: 'Посты',
-			type: DashboardPanelsType.posts,
+			link: PRIVATE_PAGES.ADMIN,
 		},
 		{
 			title: 'Статистика',
-			type: DashboardPanelsType.state,
+			link: PRIVATE_PAGES.ADMIN,
 		},
 	]
 
@@ -59,9 +61,9 @@ export const DashboardSwitch = ({ styles }: DashboardSwitchProps) => {
 						{tabs.map(tab => {
 							return (
 								<DashboardTab
-									styles={tab.type === tabPanel ? 'bg-primary text-white' : ''}
+									styles={tab.link === tabPanel ? 'bg-primary text-white' : ''}
 									key={tab.title}
-									onClick={() => setTabPanel(tab.type)}
+									onClick={() => push(tab.link)}
 								>
 									{tab.title}
 								</DashboardTab>
@@ -78,9 +80,7 @@ export const DashboardSwitch = ({ styles }: DashboardSwitchProps) => {
 				</div>
 			</div>
 
-			<div className='flex flex-col flex-1 overflow-y-auto'>
-				<DashboardPanel type={tabPanel} />
-			</div>
+			<div className='flex flex-col flex-1 overflow-y-auto'>{children}</div>
 		</div>
 	)
 }

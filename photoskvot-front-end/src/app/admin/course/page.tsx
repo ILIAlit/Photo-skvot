@@ -2,12 +2,12 @@
 
 import { observer } from 'mobx-react'
 import { NextPage } from 'next'
-import MyCoursesPage from './MyCoursesPage'
+import CoursePage from './CoursePage'
 
 interface Props {}
 
 const Page: NextPage<Props> = observer(({}) => {
-	return <MyCoursesPage />
+	return <CoursePage />
 })
 
 export default Page

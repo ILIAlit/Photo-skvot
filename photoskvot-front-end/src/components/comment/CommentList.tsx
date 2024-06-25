@@ -27,6 +27,7 @@ export const CommentList = ({ postId }: CommentListProps) => {
 		onSuccess: () => {
 			toast.success('Успешное создание комментария')
 			reset()
+			location.reload()
 		},
 		onError: (err: any) => {
 			toast.error(err.response.data.message)

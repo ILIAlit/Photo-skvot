@@ -1,10 +1,10 @@
 'use client'
 
-import { DashboardSwitch } from '@/components/admin/dashboard/DashboardSwitch'
 import { useRouter } from 'next/navigation'
+import UserPage from './user/UserPage'
 
 export default function AdminPage() {
 	const { push } = useRouter()
 
-	return <DashboardSwitch />
+	return <UserPage />
 }

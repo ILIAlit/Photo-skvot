@@ -2,6 +2,7 @@
 
 import { CommentList } from '@/components/comment/CommentList'
 import PostDetailImage from '@/components/postDetale/PostDetaleImage'
+import { LoaderDot } from '@/components/UI/LoaderDot'
 import { TagList } from '@/components/UI/tags/TagList'
 import { useGetOnePost } from '@/hooks/post/useGetOnePost'
 import { useUserData } from '@/hooks/user/useUserData'
@@ -12,8 +13,13 @@ interface ShowUserDataProps {
 
 export default function PostPreview({ postId }: ShowUserDataProps) {
 	const { postData, isLoading } = useGetOnePost(postId)
-	const { userData, isLoading: userDataLad } = useUserData(postData?.user_id)
+	const { userData, isLoading: userDataLoad } = useUserData(postData?.user_id)
 	console.log(postId)
+
+	if (isLoading || userDataLoad) {
+		return <LoaderDot />
+	}
+
 	return (
 		<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 			<div className='max-w-3xl mx-auto'>
